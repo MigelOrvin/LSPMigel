@@ -1,0 +1,133 @@
+
+.auth-page {
+    background-color: #ffffff;
+    color: #172033;
+}
+
+.auth-brand {
+    color: #172033;
+    letter-spacing: -1px;
+}
+
+.auth-content {
+    max-width: 380px;
+}
+
+.auth-title {
+    font-size: 30px;
+    letter-spacing: -1px;
+}
+
+/* Login and Register Navigation */
+
+.auth-navigation {
+    background-color: #f1f5f9;
+}
+
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.auth-tab:hover {
+    color: #2563eb;
+}
+
+.auth-tab.active {
+    background-color: #ffffff;
+    color: #2563eb;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+/* Input */
+
+.auth-content .form-control {
+    min-height: 46px;
+    border-color: #dce2ea;
+    border-radius: 8px;
+    font-size: 14px;
+}
+/* IF PASS NOT SAME */
+.auth-content .form-control.is-invalid {
+    border-color: #dc3545;
+}
+/* remove icon error */
+.auth-content .password-input.is-invalid {
+    background-image: none;
+}
+
+
+.auth-content .form-control::placeholder {
+    color: #94a3b8;
+}
+
+.auth-content .form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+/* FOCUS if NOT SAME PASSWORD */
+.auth-content .form-control.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.auth-content .form-label {
+    font-size: 14px;
+}
+
+/* Password Visibility */
+
+.password-input {
+    padding-right: 46px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #64748b;
+    padding: 8px;
+    font-size: 18px;
+}
+
+.password-toggle:hover {
+    color: #2563eb;
+}
+
+/* Submit Button */
+
+.auth-submit {
+    min-height: 46px;
+    border-radius: 8px;
+    font-weight: 600;
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.auth-submit:hover,
+.auth-submit:active {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+    .auth-title {
+        font-size: 27px;
+    }
+
+    .auth-content .form-control {
+        font-size: 16px;
+    }
+}
