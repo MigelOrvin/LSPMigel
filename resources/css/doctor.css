@@ -1,0 +1,388 @@
+
+/* ========================================
+   DENTALCARE — DOCTOR MANAGEMENT
+======================================== */
+
+.doctor-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* PRIMARY BUTTON */
+
+.btn-admin-primary {
+    background: var(--admin-primary);
+    color: #ffffff;
+    border: 1px solid var(--admin-primary);
+    border-radius: 9px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-admin-primary:hover {
+    background: var(--admin-primary-hover);
+    border-color: var(--admin-primary-hover);
+    color: #ffffff;
+}
+
+.btn-admin-primary:disabled {
+    background: var(--admin-primary);
+    border-color: var(--admin-primary);
+    color: #ffffff;
+    opacity: 0.6;
+}
+
+/* SEARCH */
+
+.doctor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.doctor-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.doctor-search .input-group-text,
+.doctor-search .form-control {
+    background: #fcfefe;
+    border-color: var(--admin-border);
+}
+
+.doctor-search .input-group-text {
+    color: var(--admin-muted);
+}
+
+.doctor-search .form-control {
+    color: var(--admin-text);
+    font-size: 14px;
+}
+
+.doctor-search .form-control:focus {
+    border-color: #80b6c0;
+    box-shadow: none;
+}
+
+.doctor-reset {
+    color: var(--admin-primary);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+/* DOCTOR CARD */
+
+.doctor-card {
+    height: 100%;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #fcfefe;
+
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+
+    box-shadow: 0 4px 12px rgba(22, 75, 89, 0.03);
+
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+@media (hover: hover) {
+    .doctor-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(22, 75, 89, 0.08);
+    }
+}
+
+/* PROFILE */
+
+.doctor-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.doctor-photo {
+    width: 100px;
+    height: 100px;
+
+    flex-shrink: 0;
+    overflow: hidden;
+
+    background: #dceff0;
+    border: 3px solid #e4f1f2;
+    border-radius: 18px;
+}
+
+.doctor-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+.doctor-photo-placeholder {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--admin-primary);
+    font-size: 42px;
+}
+
+/* DOCTOR STATUS */
+
+.doctor-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    border-radius: 20px;
+    padding: 6px 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.doctor-status i {
+    font-size: 7px;
+}
+
+.doctor-active {
+    background: #dff3e9;
+    color: #27865c;
+}
+
+.doctor-inactive {
+    background: #fce5e7;
+    color: #b84552;
+}
+
+/* DOCTOR INFORMATION */
+
+.doctor-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.doctor-name {
+    color: var(--admin-text);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+.doctor-fee-label {
+    color: var(--admin-muted);
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.doctor-fee {
+    color: var(--admin-primary);
+    font-size: 25px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+}
+
+.doctor-divider {
+    border-color: var(--admin-border);
+    opacity: 1;
+    margin: 20px 0;
+}
+
+/* PRACTICE SCHEDULE */
+
+.doctor-schedule-label {
+    display: flex;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: var(--admin-text);
+    margin-bottom: 14px;
+}
+
+.doctor-schedule-label i {
+    color: var(--admin-primary);
+}
+
+.doctor-schedule-label span {
+    color: var(--admin-muted);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.doctor-schedule-list {
+    padding: 5px 14px;
+
+    background: #f0f6f7;
+    border: 1px solid #e1edef;
+    border-radius: 10px;
+}
+
+.doctor-schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+
+    padding: 13px 0;
+}
+
+.doctor-schedule-row:not(:last-child) {
+    border-bottom: 1px solid #dce8eb;
+}
+
+.schedule-day {
+    color: #526e77;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.schedule-time {
+    color: var(--admin-text);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.schedule-time i {
+    color: var(--admin-muted);
+}
+
+/* ACTION BUTTONS */
+
+.doctor-actions {
+    display: flex;
+    gap: 8px;
+
+    margin-top: auto;
+    padding-top: 22px;
+}
+
+.btn-doctor-edit {
+    background: #e7f2f3;
+    color: var(--admin-primary);
+    border: 1px solid transparent;
+    border-radius: 9px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-doctor-edit:hover {
+    background: #dceff0;
+    color: var(--admin-primary-hover);
+}
+
+.btn-doctor-delete {
+    background: #fce5e7;
+    color: #b84552;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    padding: 10px 14px;
+}
+
+.btn-doctor-delete:hover {
+    background: #f5cdd2;
+    color: #a03945;
+}
+
+.btn-doctor-edit:disabled {
+    background: #e7f2f3;
+    color: var(--admin-primary);
+    opacity: 0.6;
+}
+
+.btn-doctor-delete:disabled {
+    background: #fce5e7;
+    color: #b84552;
+    opacity: 0.6;
+}
+
+/* RESPONSIVE MOBILE */
+
+@media (max-width: 575.98px) {
+
+    .doctor-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .doctor-page-header .btn-admin-primary {
+        width: 100%;
+    }
+
+    .doctor-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .doctor-search {
+        max-width: 100%;
+    }
+
+    .doctor-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .doctor-profile {
+        margin-bottom: 16px;
+    }
+
+    .doctor-photo {
+        width: 82px;
+        height: 82px;
+        border-radius: 14px;
+    }
+
+    .doctor-name {
+        font-size: 18px;
+    }
+
+    .doctor-fee {
+        font-size: 22px;
+    }
+
+    .doctor-divider {
+        margin: 16px 0;
+    }
+
+    .doctor-schedule-row {
+        padding: 11px 0;
+    }
+
+    .doctor-actions {
+        padding-top: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .doctor-card {
+        transition: none;
+    }
+}

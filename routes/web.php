@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\Admin\DoctorController;
 
 Route::get('/', [AuthController::class, 'showLogin']);
 
@@ -31,5 +32,10 @@ Route::prefix('admin')
             DashboardController::class,
             'index'
         ])->name('dashboard');
+
+        Route::get('/doctors', [
+            DoctorController::class,
+            'index'
+        ])->name('doctors.index');
 
     });

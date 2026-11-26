@@ -39,10 +39,13 @@
             Pasien
         </button>
 
-        <button class="sidebar-link" disabled>
+        <a href="{{ route('admin.doctors.index') }}"
+            class="sidebar-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">
+
             <i class="bi bi-person-vcard"></i>
             Dokter
-        </button>
+
+        </a>
 
         <button class="sidebar-link" disabled>
             <i class="bi bi-calendar-week"></i>
