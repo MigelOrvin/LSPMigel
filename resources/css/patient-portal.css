@@ -538,6 +538,22 @@ a.portal-service-card:hover {
     font-size: 12px;
 }
 
+.portal-profile-button.dropdown-toggle::after {
+    content: "\F282";
+    font-family: "bootstrap-icons";
+
+    border: none;
+    font-size: 12px;
+    margin-left: auto;
+
+    color: var(--portal-muted);
+
+    transition: transform 0.2s ease;
+}
+
+.portal-profile-button[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
 /* ========================================
    RESPONSIVE
 ======================================== */
@@ -656,5 +672,73 @@ a.portal-service-card:hover {
 
     a.portal-service-card:hover {
         transform: none;
+    }
+}
+/* ========================================
+   MOBILE PROFILE DROPDOWN FIX
+======================================== */
+
+@media (max-width: 991.98px) {
+
+    .portal-profile {
+        width: 100%;
+        margin-top: 12px;
+        padding-top: 16px;
+    }
+
+    .portal-profile-button {
+        width: 100%;
+        padding: 12px;
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        background: #f0f6f7;
+        border: 1px solid var(--portal-border);
+        border-radius: 12px;
+
+        text-align: left;
+    }
+
+    .portal-profile-button:hover,
+    .portal-profile-button[aria-expanded="true"] {
+        background: #e5f1f2;
+        border-color: var(--portal-border);
+    }
+
+    .portal-profile-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .portal-profile-info span {
+        overflow-wrap: anywhere;
+    }
+
+    .portal-profile-button::after {
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .portal-profile .dropdown-menu {
+        position: static;
+        width: 100%;
+
+        margin-top: 8px;
+        padding: 8px;
+
+        box-shadow: none;
+        border-radius: 12px;
+    }
+
+    .portal-profile .dropdown-item-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .portal-profile .dropdown-item {
+        padding: 10px 12px;
+        border-radius: 8px;
     }
 }
