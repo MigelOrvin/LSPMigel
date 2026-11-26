@@ -38,3 +38,36 @@ if (password && confirmation) {
     password.addEventListener("input", validatePassword);
     confirmation.addEventListener("input", validatePassword);
 }
+
+
+// Authentication Sliding Animation
+
+const authSlider = document.getElementById("auth-slider");
+
+if (authSlider) {
+    const authButtons = authSlider.querySelectorAll("[data-auth-mode]");
+
+    function setAuthMode(mode) {
+        const isRegister = mode === "register";
+
+        authSlider.classList.toggle("active", isRegister);
+
+        authSlider.querySelector(".login-panel").inert = isRegister;
+        authSlider.querySelector(".register-panel").inert = !isRegister;
+
+        authSlider.querySelector(".switch-right").inert = isRegister;
+        authSlider.querySelector(".switch-left").inert = !isRegister;
+    }
+
+    authButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            setAuthMode(button.dataset.authMode);
+        });
+    });
+
+    setAuthMode(
+        authSlider.classList.contains("active")
+            ? "register"
+            : "login"
+    );
+}

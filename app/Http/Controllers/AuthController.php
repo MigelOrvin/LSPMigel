@@ -10,14 +10,17 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        return view('auth.login');
+        return view('auth.index', [
+            'mode' => 'login'
+        ]);
     }
 
     public function showRegister()
     {
-        return view('auth.register');
+        return view('auth.index', [
+            'mode' => 'register'
+        ]);
     }
-
     
     public function login(Request $request)
     {

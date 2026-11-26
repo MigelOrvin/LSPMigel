@@ -1,0 +1,85 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1920 1080"
+     fill="none">
+
+    <defs>
+        <linearGradient id="waveGradient"
+            x1="0%" y1="0%" x2="100%" y2="100%">
+
+            <stop offset="0%"
+                stop-color="#126e87"
+                stop-opacity=".08"/>
+
+            <stop offset="50%"
+                stop-color="#168f9c"
+                stop-opacity=".35"/>
+
+            <stop offset="100%"
+                stop-color="#126e87"
+                stop-opacity=".08"/>
+
+        </linearGradient>
+
+        <g id="wave"
+            stroke="url(#waveGradient)"
+            stroke-width="1.5">
+
+            <path d="M-300 -100
+                     C 600 -400, -150 450, 600 250
+                     S 1200 -200, 1500 100"/>
+
+        </g>
+    </defs>
+
+    <!-- Top Left Waves -->
+
+    <g>
+        <use href="#wave" y="0"/>
+        <use href="#wave" y="22"/>
+        <use href="#wave" y="44"/>
+        <use href="#wave" y="66"/>
+        <use href="#wave" y="88"/>
+        <use href="#wave" y="110"/>
+        <use href="#wave" y="132"/>
+        <use href="#wave" y="154"/>
+        <use href="#wave" y="176"/>
+        <use href="#wave" y="198"/>
+        <use href="#wave" y="220"/>
+        <use href="#wave" y="242"/>
+    </g>
+
+    <!-- Bottom Right Waves -->
+
+    <g transform="translate(1920 1080) rotate(180)">
+        <use href="#wave" y="0"/>
+        <use href="#wave" y="22"/>
+        <use href="#wave" y="44"/>
+        <use href="#wave" y="66"/>
+        <use href="#wave" y="88"/>
+        <use href="#wave" y="110"/>
+        <use href="#wave" y="132"/>
+        <use href="#wave" y="154"/>
+        <use href="#wave" y="176"/>
+        <use href="#wave" y="198"/>
+        <use href="#wave" y="220"/>
+        <use href="#wave" y="242"/>
+    </g>
+
+    <!-- Decorative Bubbles -->
+
+    <g stroke="#126e87"
+       stroke-width="1.5"
+       opacity=".15">
+
+        <circle cx="150" cy="750" r="12"/>
+        <circle cx="195" cy="800" r="7"/>
+        <circle cx="115" cy="840" r="20"/>
+
+        <circle cx="1700" cy="150" r="18"/>
+        <circle cx="1760" cy="210" r="9"/>
+        <circle cx="1650" cy="90" r="6"/>
+
+    </g>
+
+</svg>

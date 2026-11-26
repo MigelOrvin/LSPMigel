@@ -2,49 +2,17 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="auth-page d-flex flex-column min-vh-100"
+    style="--page-vector: url('{{ asset('images/waves.svg') }}');">
 
-<div class="auth-page d-flex flex-column min-vh-100">
-
-    {{-- Header --}}
-    <header class="border-bottom">
-        <div class="container d-flex justify-content-between align-items-center py-3">
-
-            <a href="{{ route('login') }}"
-                class="auth-brand text-decoration-none fw-bold fs-4">
-
-                <i class="bi bi-heart-pulse text-primary me-1"></i>
-                DentalCare<span class="text-primary">.</span>
-
-            </a>
-
-
-        </div>
-    </header>
+    
 
     {{-- Main Content --}}
     <main class="flex-grow-1 d-flex justify-content-center align-items-center px-4 py-5">
 
-        <div class="auth-content w-100">
+        <div class="w-100 {{ isset($mode) ? 'auth-wide' : 'auth-content' }}">
 
             
-            {{-- Navigation --}}
-            @if (request()->routeIs('login', 'register'))
-
-                <div class="auth-navigation d-flex p-1 rounded-3 mb-4">
-
-                    <a href="{{ route('login') }}"
-                        class="auth-tab {{ request()->routeIs('login') ? 'active' : '' }}">
-                        Masuk
-                    </a>
-
-                    <a href="{{ route('register') }}"
-                        class="auth-tab {{ request()->routeIs('register') ? 'active' : '' }}">
-                        Daftar
-                    </a>
-
-                </div>
-
-            @endif
 
 
             {{-- Success Alert --}}
@@ -87,10 +55,6 @@
 
     </main>
 
-    {{-- Footer --}}
-    <footer class="text-center text-secondary small py-4">
-        &copy; {{ date('Y') }} DentalCare
-    </footer>
 
 </div>
 

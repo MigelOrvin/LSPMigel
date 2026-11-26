@@ -1,17 +1,9 @@
 
-@extends('auth.auth')
-
-@section('title', 'Masuk | DentalCare')
-
-@section('auth-content')
-
 <div class="mb-4">
-    <h1 class="auth-title fw-bold mb-2">
-        Selamat datang!
-    </h1>
+    <h1 class="auth-title fw-bold mb-2">Masuk</h1>
 
     <p class="text-secondary mb-0">
-        Masuk untuk melanjutkan reservasi Anda.
+        Selamat datang kembali.
     </p>
 </div>
 
@@ -19,35 +11,29 @@
 
     @csrf
 
-    {{-- Email --}}
     <div class="mb-3">
-
-        <label for="email" class="form-label fw-medium">
+        <label for="login-email" class="form-label fw-medium">
             Email
         </label>
 
         <input type="email"
-            id="email"
+            id="login-email"
             name="email"
             class="form-control"
             placeholder="nama@email.com"
-            value="{{ old('email') }}"
+            value="{{ $mode === 'login' ? old('email') : '' }}"
             autocomplete="email"
             required>
-
     </div>
 
-    {{-- Password --}}
     <div class="mb-4">
-
-        <label for="password" class="form-label fw-medium">
+        <label for="login-password" class="form-label fw-medium">
             Password
         </label>
 
         <div class="position-relative">
-
             <input type="password"
-                id="password"
+                id="login-password"
                 name="password"
                 class="form-control password-input"
                 placeholder="Masukkan password"
@@ -56,27 +42,17 @@
 
             <button type="button"
                 class="password-toggle"
-                data-target="password"
+                data-target="login-password"
                 aria-label="Tampilkan password">
 
                 <i class="bi bi-eye"></i>
-
             </button>
-
         </div>
-
     </div>
 
-    {{-- Submit --}}
     <button type="submit"
-        class="btn btn-primary auth-submit w-100 position-relative">
-
+        class="btn btn-primary auth-submit w-100">
         Masuk
-
-        <i class="bi bi-arrow-right position-absolute end-0 me-3"></i>
-
     </button>
 
 </form>
-
-@endsection
