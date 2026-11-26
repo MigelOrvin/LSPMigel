@@ -29,4 +29,20 @@ class DoctorController extends Controller
             'search'
         ));
     }
+    public function updateStatus(Request $request, Doctor $doctor)
+    {
+        $validated = $request->validate([
+            'is_active' => ['required', 'boolean']
+        ]);
+
+        $doctor->update([
+            'is_active' => $validated['is_active']
+        ]);
+
+        $message = $doctor->is_active
+            ? 'Dokter berhasil diaktifkan.'
+            : 'Dokter berhasil dinonaktifkan.';
+
+        return back()->with('success', $message);
+    }
 }

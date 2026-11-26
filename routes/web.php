@@ -37,5 +37,10 @@ Route::prefix('admin')
             DoctorController::class,
             'index'
         ])->name('doctors.index');
+        
+        Route::patch('/doctors/{doctor}/status', [
+            DoctorController::class,
+            'updateStatus'
+        ])->name('doctors.status');
 
     });

@@ -35,6 +35,45 @@
     opacity: 0.6;
 }
 
+/* DOCTOR STATUS CONTROL */
+
+.doctor-status-control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.doctor-switch {
+    margin: 0;
+    padding: 0;
+    min-height: auto;
+}
+
+.doctor-switch .form-check-input {
+    float: none;
+    margin: 0;
+
+    width: 42px;
+    height: 23px;
+
+    cursor: pointer;
+
+    background-color: #c6d4d8;
+    border-color: #c6d4d8;
+
+    transition: background-color 0.2s ease;
+}
+
+.doctor-switch .form-check-input:checked {
+    background-color: var(--admin-primary);
+    border-color: var(--admin-primary);
+}
+
+.doctor-switch .form-check-input:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(18, 110, 135, 0.12);
+}
 /* SEARCH */
 
 .doctor-toolbar {
@@ -298,18 +337,7 @@
     color: var(--admin-primary-hover);
 }
 
-.btn-doctor-delete {
-    background: #fce5e7;
-    color: #b84552;
-    border: 1px solid transparent;
-    border-radius: 9px;
-    padding: 10px 14px;
-}
 
-.btn-doctor-delete:hover {
-    background: #f5cdd2;
-    color: #a03945;
-}
 
 .btn-doctor-edit:disabled {
     background: #e7f2f3;
@@ -317,11 +345,7 @@
     opacity: 0.6;
 }
 
-.btn-doctor-delete:disabled {
-    background: #fce5e7;
-    color: #b84552;
-    opacity: 0.6;
-}
+
 
 /* RESPONSIVE MOBILE */
 

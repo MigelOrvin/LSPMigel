@@ -29,10 +29,6 @@
         </p>
     </div>
 
-    <button type="button" class="btn btn-admin-primary" disabled>
-        <i class="bi bi-plus-lg me-1"></i>
-        Tambah Dokter
-    </button>
 
 </div>
 
@@ -108,18 +104,47 @@
 
                     </div>
 
-                    <span class="doctor-status
-                        {{ $doctor->is_active
-                            ? 'doctor-active'
-                            : 'doctor-inactive' }}">
+                    <div class="doctor-status-control">
 
-                        <i class="bi bi-circle-fill"></i>
+                        {{-- Status Badge --}}
+                        <span class="doctor-status
+                            {{ $doctor->is_active
+                                ? 'doctor-active'
+                                : 'doctor-inactive' }}">
 
-                        {{ $doctor->is_active
-                            ? 'Aktif'
-                            : 'Nonaktif' }}
+                            <i class="bi bi-circle-fill"></i>
 
-                    </span>
+                            {{ $doctor->is_active
+                                ? 'Aktif'
+                                : 'Nonaktif' }}
+
+                        </span>
+
+                        {{-- Toggle Status --}}
+                        <form action="{{ route('admin.doctors.status', $doctor) }}"
+                            method="POST">
+
+                            @csrf
+                            @method('PATCH')
+
+                            <input type="hidden"
+                                name="is_active"
+                                value="{{ $doctor->is_active ? 0 : 1 }}">
+
+                            <div class="form-check form-switch doctor-switch">
+
+                                <input type="checkbox"
+                                    class="form-check-input"
+                                    role="switch"
+                                    aria-label="Status aktif {{ $doctor->name }}"
+                                    onchange="this.form.requestSubmit()"
+                                    @checked($doctor->is_active)>
+
+                            </div>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
@@ -194,27 +219,7 @@
                     </div>
 
                     {{-- Actions --}}
-                    <div class="doctor-actions">
-
-                        <button type="button"
-                            class="btn btn-doctor-edit flex-grow-1"
-                            disabled>
-
-                            <i class="bi bi-pencil-square me-1"></i>
-                            Edit Dokter
-
-                        </button>
-
-                        <button type="button"
-                            class="btn btn-doctor-delete"
-                            aria-label="Hapus dokter"
-                            disabled>
-
-                            <i class="bi bi-trash3"></i>
-
-                        </button>
-
-                    </div>
+                    
 
                 </div>
 
