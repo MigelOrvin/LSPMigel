@@ -25,23 +25,75 @@
 
     </div>
 
-    <div class="d-flex align-items-center gap-3">
+    {{-- Admin Profile Dropdown --}}
+    <div class="dropdown admin-profile-dropdown">
 
-        <div class="text-end d-none d-sm-block">
+        <button type="button"
+            class="btn admin-profile-button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            aria-label="Menu akun admin">
 
-            <div class="fw-semibold">
-                {{ auth()->user()->name }}
+            <div class="text-end d-none d-sm-block">
+
+                <div class="fw-semibold">
+                    {{ auth()->user()->name }}
+                </div>
+
+                <small class="text-secondary">
+                    Administrator
+                </small>
+
             </div>
 
-            <small class="text-secondary">
-                Administrator
-            </small>
+            <div class="admin-avatar">
+                {{ mb_strtoupper(
+                    mb_substr(auth()->user()->name, 0, 1)
+                ) }}
+            </div>
 
-        </div>
+            <i class="bi bi-chevron-down admin-profile-chevron"></i>
 
-        <div class="admin-avatar">
-            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-        </div>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end admin-profile-menu">
+
+            <li>
+                <h6 class="dropdown-header">
+                    Akun Saya
+                </h6>
+            </li>
+
+            <li>
+                <span class="dropdown-item-text small text-secondary">
+                    {{ auth()->user()->email }}
+                </span>
+            </li>
+
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+
+            <li>
+
+                <form action="{{ route('logout') }}"
+                    method="POST">
+
+                    @csrf
+
+                    <button type="submit"
+                        class="dropdown-item admin-logout">
+
+                        <i class="bi bi-box-arrow-right me-2"></i>
+                        Keluar
+
+                    </button>
+
+                </form>
+
+            </li>
+
+        </ul>
 
     </div>
 

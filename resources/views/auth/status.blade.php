@@ -11,7 +11,7 @@
 
 <div class="mb-4">
     <h1 class="auth-title fw-bold mb-2">
-        Status pendaftaran
+        Status Akun Anda
     </h1>
 
     <p class="text-secondary mb-0">
@@ -27,7 +27,7 @@
         <i class="bi {{ $isPending ? 'bi-clock-history' : 'bi-x-circle' }} fs-5"></i>
 
         <span class="fw-semibold">
-            {{ $isPending ? 'Menunggu persetujuan' : 'Pendaftaran ditolak' }}
+            {{ $isPending ? 'Menunggu persetujuan' : 'Akun ditolak' }}
         </span>
 
     </div>
@@ -36,7 +36,7 @@
         @if ($isPending)
             Akun Anda sedang dalam proses verifikasi oleh admin.
         @else
-            Pendaftaran akun Anda telah ditolak oleh admin.
+            Akun Anda telah ditolak/diban oleh admin.
         @endif
     </p>
 
