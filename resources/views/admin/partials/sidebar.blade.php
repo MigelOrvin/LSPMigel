@@ -1,0 +1,88 @@
+<aside class="admin-sidebar" id="admin-sidebar">
+
+    {{-- Brand --}}
+    <div class="sidebar-brand">
+
+        <a href="{{ route('admin.dashboard') }}"
+            class="text-decoration-none">
+
+            <i class="bi bi-heart-pulse"></i>
+            DentalCare<span>.</span>
+
+        </a>
+
+        <small>ADMIN PORTAL</small>
+
+    </div>
+
+    {{-- Navigation --}}
+    <nav class="sidebar-navigation">
+
+        <div class="sidebar-label">
+            MENU UTAMA
+        </div>
+
+        <a href="{{ route('admin.dashboard') }}"
+            class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+
+            <i class="bi bi-grid-1x2"></i>
+            Dashboard
+
+        </a>
+
+        <div class="sidebar-label">
+            MANAJEMEN
+        </div>
+
+        <button class="sidebar-link" disabled>
+            <i class="bi bi-people"></i>
+            Pasien
+        </button>
+
+        <button class="sidebar-link" disabled>
+            <i class="bi bi-person-vcard"></i>
+            Dokter
+        </button>
+
+        <button class="sidebar-link" disabled>
+            <i class="bi bi-calendar-week"></i>
+            Jadwal Praktik
+        </button>
+
+        <button class="sidebar-link" disabled>
+            <i class="bi bi-calendar-check"></i>
+            Reservasi
+        </button>
+
+        <button class="sidebar-link" disabled>
+            <i class="bi bi-wallet2"></i>
+            Pembayaran
+        </button>
+
+        <button class="sidebar-link" disabled>
+            <i class="bi bi-megaphone"></i>
+            Pengumuman
+        </button>
+
+    </nav>
+
+    {{-- Admin Profile --}}
+    <div class="sidebar-profile">
+
+        <div class="admin-avatar">
+            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+        </div>
+
+        <div>
+            <div class="fw-semibold">
+                {{ auth()->user()->name }}
+            </div>
+
+            <small class="text-secondary">
+                Administrator
+            </small>
+        </div>
+
+    </div>
+
+</aside>
