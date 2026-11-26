@@ -34,10 +34,14 @@
             MANAJEMEN
         </div>
 
-        <button class="sidebar-link" disabled>
+        <a href="{{ route('admin.patients.index') }}"
+            class="sidebar-link
+            {{ request()->routeIs('admin.patients.*') ? 'active' : '' }}">
+
             <i class="bi bi-people"></i>
             Pasien
-        </button>
+
+        </a>
 
         <a href="{{ route('admin.doctors.index') }}"
             class="sidebar-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">

@@ -1,0 +1,302 @@
+
+/* ========================================
+   DENTALCARE — PATIENT MANAGEMENT
+======================================== */
+
+/* STATISTICS */
+
+.patient-stat-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    align-content: center;
+    gap: 14px;
+    min-height: 120px;
+}
+
+.patient-stat-card .stat-icon {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+}
+
+.patient-stat-card .stat-value {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+}
+
+.patient-stat-card .stat-label {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 0;
+}
+
+/* SEARCH AND FILTER */
+
+.patient-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    padding: 0 24px 24px;
+}
+
+.patient-search {
+    width: 100%;
+    max-width: 380px;
+}
+
+.patient-search .input-group-text,
+.patient-search .form-control {
+    background: #fcfefe;
+    border-color: var(--admin-border);
+    font-size: 14px;
+}
+
+.patient-search .input-group-text {
+    color: var(--admin-muted);
+}
+
+.patient-search .form-control:focus {
+    border-color: #80b6c0;
+    box-shadow: none;
+}
+
+.patient-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.patient-filter {
+    padding: 9px 14px;
+
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+
+    color: var(--admin-muted);
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.patient-filter:hover {
+    color: var(--admin-primary);
+    background: #edf6f6;
+}
+
+.patient-filter.active {
+    background: #dceff0;
+    color: var(--admin-primary);
+    border-color: #dceff0;
+    font-weight: 600;
+}
+
+/* PATIENT IDENTITY */
+
+.patient-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.patient-avatar {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    background: #dceff0;
+    color: var(--admin-primary);
+
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.patient-info {
+    min-width: 0;
+}
+
+.patient-name {
+    color: var(--admin-text);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.patient-info small {
+    font-size: 12px;
+}
+
+/* VERIFICATION ACTIONS */
+
+.patient-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-patient-approve,
+.btn-patient-reject {
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.btn-patient-approve {
+    background: #dff3e9;
+    color: #27865c;
+    border: 1px solid transparent;
+}
+
+.btn-patient-approve:hover {
+    background: #ccebdc;
+    color: #206b49;
+}
+
+.btn-patient-reject {
+    background: #fce5e7;
+    color: #b84552;
+    border: 1px solid transparent;
+}
+
+.btn-patient-reject:hover {
+    background: #f5cdd2;
+    color: #a03945;
+}
+
+/* PAGINATION */
+
+.patient-pagination {
+    padding: 20px 24px;
+    border-top: 1px solid var(--admin-border);
+}
+
+.patient-pagination .pagination {
+    margin-bottom: 0;
+}
+
+.patient-pagination .page-link {
+    color: var(--admin-primary);
+}
+
+.patient-pagination .active .page-link {
+    background: var(--admin-primary);
+    border-color: var(--admin-primary);
+    color: white;
+}
+
+/* VERIFICATION MODAL */
+
+.patient-modal {
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+}
+
+.patient-modal .modal-header,
+.patient-modal .modal-footer {
+    border-color: var(--admin-border);
+    padding: 18px 24px;
+}
+
+.verification-icon {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    font-size: 32px;
+}
+
+.verification-approved {
+    background: #dff3e9;
+    color: #27865c;
+}
+
+.verification-rejected {
+    background: #fce5e7;
+    color: #b84552;
+}
+
+/* RESPONSIVE MOBILE */
+
+@media (max-width: 767.98px) {
+
+    .patient-toolbar {
+        padding: 0 16px 16px;
+    }
+
+    .patient-search {
+        max-width: 100%;
+    }
+
+    .patient-filter {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .patient-table thead {
+        display: none;
+    }
+
+    .patient-table,
+    .patient-table tbody,
+    .patient-table tr,
+    .patient-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .patient-table tbody tr {
+        padding: 16px;
+        border-top: 1px solid var(--admin-border);
+    }
+
+    .patient-table tbody td {
+        padding: 6px 0;
+        border: none;
+        white-space: normal;
+    }
+
+    .patient-info {
+        overflow-wrap: anywhere;
+    }
+
+    .patient-date {
+        font-size: 12px;
+        color: var(--admin-muted);
+    }
+
+    .patient-actions {
+        margin-top: 6px;
+    }
+
+    .patient-actions .btn {
+        flex: 1;
+    }
+
+    .patient-pagination {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    .patient-stat-card {
+        min-height: 100px;
+        padding: 14px;
+    }
+}

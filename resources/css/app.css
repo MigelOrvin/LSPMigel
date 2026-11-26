@@ -4,4 +4,5 @@
 
 @import './auth.css';
 @import './admin.css';
-@import './doctor.css'
+@import './doctor.css';
+@import './patient.css';

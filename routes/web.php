@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\Admin\PatientController;
 
 Route::get('/', [AuthController::class, 'showLogin']);
 
@@ -37,10 +38,20 @@ Route::prefix('admin')
             DoctorController::class,
             'index'
         ])->name('doctors.index');
-        
+
         Route::patch('/doctors/{doctor}/status', [
             DoctorController::class,
             'updateStatus'
         ])->name('doctors.status');
+
+        Route::get('/patients', [
+            PatientController::class,
+            'index'
+        ])->name('patients.index');
+
+        Route::patch('/patients/{patient}/status', [
+            PatientController::class,
+            'updateStatus'
+        ])->name('patients.status');
 
     });
