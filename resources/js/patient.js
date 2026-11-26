@@ -1,4 +1,3 @@
-
 const verificationModal = document.getElementById(
     "verificationModal"
 );
@@ -20,6 +19,7 @@ if (verificationModal) {
 
         const patientName = button.dataset.patient;
         const patientStatus = button.dataset.status;
+        const currentStatus = button.dataset.currentStatus;
         const url = button.dataset.url;
 
         const isApproved = patientStatus === "approved";
@@ -27,13 +27,38 @@ if (verificationModal) {
         form.action = url;
         status.value = patientStatus;
 
-        heading.textContent = isApproved
-            ? "Setujui Pendaftaran?"
-            : "Tolak Pendaftaran?";
+        if (currentStatus === "rejected" && isApproved) {
 
-        message.textContent = isApproved
-            ? `${patientName} akan mendapatkan akses untuk masuk dan melakukan reservasi.`
-            : `${patientName} tidak akan mendapatkan akses masuk ke aplikasi.`;
+            heading.textContent = "Pulihkan Akses Pasien?";
+
+            message.textContent =
+                `${patientName} akan kembali mendapatkan akses ke aplikasi.`;
+
+            submit.textContent = "Pulihkan Akses";
+
+        } else if (currentStatus === "approved" && !isApproved) {
+
+            heading.textContent = "Cabut Akses Pasien?";
+
+            message.textContent =
+                `${patientName} tidak akan dapat mengakses aplikasi sampai disetujui kembali.`;
+
+            submit.textContent = "Cabut Akses";
+
+        } else {
+
+            heading.textContent = isApproved
+                ? "Setujui Pendaftaran?"
+                : "Tolak Pendaftaran?";
+
+            message.textContent = isApproved
+                ? `${patientName} akan mendapatkan akses ke aplikasi.`
+                : `${patientName} tidak akan mendapatkan akses ke aplikasi.`;
+
+            submit.textContent = isApproved
+                ? "Setujui"
+                : "Tolak";
+        }
 
         icon.className = isApproved
             ? "verification-icon verification-approved"
@@ -46,10 +71,6 @@ if (verificationModal) {
         submit.className = isApproved
             ? "btn btn-success"
             : "btn btn-danger";
-
-        submit.textContent = isApproved
-            ? "Setujui"
-            : "Tolak";
 
         submit.disabled = false;
     });

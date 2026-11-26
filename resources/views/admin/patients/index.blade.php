@@ -159,7 +159,7 @@
                     <th>Pasien</th>
                     <th>Tanggal Daftar</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    <th class="patient-action-heading">Aksi</th>
                 </tr>
             </thead>
 
@@ -222,56 +222,57 @@
                         </td>
 
                         {{-- Actions --}}
-                        <td>
+                        <td class="patient-action-cell">
 
-                            @if ($patient->status === 'pending')
+                            <div class="patient-actions">
 
-                                <div class="patient-actions">
+                                @if ($patient->status !== 'approved')
 
                                     <button type="button"
                                         class="btn btn-patient-approve"
                                         data-bs-toggle="modal"
                                         data-bs-target="#verificationModal"
                                         data-patient="{{ $patient->name }}"
+                                        data-current-status="{{ $patient->status }}"
                                         data-status="approved"
-                                        data-url="{{ route(
-                                            'admin.patients.status',
-                                            $patient
-                                        ) }}">
+                                        data-url="{{ route('admin.patients.status', $patient) }}"
+                                        title="{{ $patient->status === 'rejected'
+                                            ? 'Pulihkan Akses'
+                                            : 'Setujui Pendaftaran' }}"
+                                        aria-label="{{ $patient->status === 'rejected'
+                                            ? 'Pulihkan Akses'
+                                            : 'Setujui Pendaftaran' }}">
 
-                                        <i class="bi bi-check-lg me-1"></i>
-                                        Setujui
+                                        <i class="bi bi-person-check"></i>
 
                                     </button>
+
+                                @endif
+
+                                @if ($patient->status !== 'rejected')
 
                                     <button type="button"
                                         class="btn btn-patient-reject"
                                         data-bs-toggle="modal"
                                         data-bs-target="#verificationModal"
                                         data-patient="{{ $patient->name }}"
+                                        data-current-status="{{ $patient->status }}"
                                         data-status="rejected"
-                                        data-url="{{ route(
-                                            'admin.patients.status',
-                                            $patient
-                                        ) }}">
+                                        data-url="{{ route('admin.patients.status', $patient) }}"
+                                        title="{{ $patient->status === 'approved'
+                                            ? 'Cabut Akses'
+                                            : 'Tolak Pendaftaran' }}"
+                                        aria-label="{{ $patient->status === 'approved'
+                                            ? 'Cabut Akses'
+                                            : 'Tolak Pendaftaran' }}">
 
-                                        <i class="bi bi-x-lg me-1"></i>
-                                        Tolak
+                                        <i class="bi bi-person-x"></i>
 
                                     </button>
 
-                                </div>
+                                @endif
 
-                            @else
-
-                                <span class="admin-muted small">
-
-                                    <i class="bi bi-check2-circle me-1"></i>
-                                    Sudah ditinjau
-
-                                </span>
-
-                            @endif
+                            </div>
 
                         </td>
 

@@ -67,30 +67,47 @@ class PatientController extends Controller
 
     public function updateStatus(Request $request, User $patient)
     {
-        // Admin tidak boleh memverifikasi akun admin lain
         abort_unless($patient->role === 'patient', 404);
 
         $validated = $request->validate([
             'status' => 'required|in:approved,rejected'
         ]);
 
-        // Hanya akun pending yang dapat diverifikasi
+        $previousStatus = $patient->status;
+        $newStatus = $validated['status'];
+
+        if ($previousStatus === $newStatus) {
+            return back()->withErrors([
+                'status' => 'Status pasien sudah sesuai.'
+            ]);
+        }
+
         $updated = User::whereKey($patient->id)
             ->where('role', 'patient')
-            ->where('status', 'pending')
+            ->where('status', $previousStatus)
             ->update([
-                'status' => $validated['status']
+                'status' => $newStatus
             ]);
 
         if (!$updated) {
             return back()->withErrors([
-                'status' => 'Pendaftaran pasien sudah diverifikasi.'
+                'status' => 'Status pasien telah berubah. Silakan coba kembali.'
             ]);
         }
 
-        $message = $validated['status'] === 'approved'
-            ? 'Pendaftaran pasien berhasil disetujui.'
-            : 'Pendaftaran pasien berhasil ditolak.';
+        $message = match (true) {
+            $previousStatus === 'rejected' && $newStatus === 'approved'
+                => 'Akses pasien berhasil dipulihkan.',
+
+            $previousStatus === 'approved' && $newStatus === 'rejected'
+                => 'Akses pasien berhasil dicabut.',
+
+            $newStatus === 'approved'
+                => 'Pendaftaran pasien berhasil disetujui.',
+
+            default
+                => 'Pendaftaran pasien berhasil ditolak.'
+        };
 
         return back()->with('success', $message);
     }
