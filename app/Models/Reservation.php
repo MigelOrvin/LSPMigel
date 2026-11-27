@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
 {
@@ -44,5 +45,23 @@ class Reservation extends Model
     public function verifier(): BelongsTo
     {
         return $this->belongsTo(User::class, 'verified_by');
+    }
+    public function payment(): HasOne
+    {
+        return $this->hasOne(Payment::class);
+    }
+    public function getDisplayStatusAttribute(): string
+    {
+        if ($this->status !== 'pending') {
+            return $this->status;
+        }
+
+        return match ($this->payment?->status) {
+            null => 'awaiting_payment',
+            'pending' => 'payment_pending',
+            'rejected' => 'payment_rejected',
+            'approved' => 'reservation_pending',
+            default => 'pending'
+        };
     }
 }

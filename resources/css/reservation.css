@@ -310,6 +310,412 @@
     }
 }
 
+/* ========================================
+   PATIENT RESERVATION CARDS
+======================================== */
+
+.patient-booking-card {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    overflow: hidden;
+
+    background: #fcfefe;
+    border: 1px solid #dce8eb;
+    border-radius: 16px;
+
+    transition: border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.patient-booking-card:hover {
+    border-color: #b8d4d9;
+    box-shadow: 0 6px 24px rgba(22, 75, 89, 0.05);
+}
+
+/* Card Header */
+
+.patient-booking-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 15px 20px;
+
+    background: #f6f9fa;
+    border-bottom: 1px solid #dce8eb;
+}
+
+.patient-booking-code {
+    color: #647f88;
+    font-size: 11px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.patient-booking-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 10px;
+    border-radius: 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.booking-status-waiting {
+    color: #96651a;
+    background: #fff1d7;
+}
+
+.booking-status-processing {
+    color: #126e87;
+    background: #dceff0;
+}
+
+.booking-status-approved {
+    color: #27865c;
+    background: #dff3e9;
+}
+
+.booking-status-rejected {
+    color: #b84552;
+    background: #fce5e7;
+}
+
+/* Card Body */
+
+.patient-booking-body {
+    padding: 22px;
+    flex: 1;
+}
+
+.patient-booking-doctor {
+    min-width: 0;
+}
+
+.patient-booking-doctor h5 {
+    color: #163b46;
+    font-size: 18px;
+    font-weight: 700;
+
+    margin-bottom: 6px;
+    overflow-wrap: anywhere;
+}
+
+/* Schedule Information */
+
+.patient-booking-schedule {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    padding: 15px 0;
+    margin-bottom: 16px;
+
+    border-top: 1px solid #e7eff1;
+}
+
+.patient-booking-schedule > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.patient-booking-schedule i {
+    color: #126e87;
+    font-size: 17px;
+}
+
+.patient-booking-schedule small {
+    display: block;
+    color: #647f88;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.patient-booking-schedule strong {
+    color: #163b46;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ========================================
+   BOOKING PROGRESS STEPPER
+======================================== */
+
+.patient-booking-progress {
+    background: #f0f6f7;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.patient-booking-progress h6 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #163b46;
+
+    margin-bottom: 16px;
+}
+
+.booking-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.booking-step {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.booking-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+
+    top: 17px;
+    left: calc(50% + 17px);
+
+    width: calc(100% - 34px);
+    height: 2px;
+
+    background: #d5e4e7;
+}
+
+.booking-step-icon {
+    display: grid;
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    background: #dce8eb;
+    color: #8ca5ac;
+
+    border-radius: 50%;
+    font-size: 15px;
+}
+
+.booking-step.done .booking-step-icon {
+    color: #ffffff;
+    background: #126e87;
+}
+
+.booking-step.done:has(+ .booking-step.done)::after {
+    background: #126e87;
+}
+
+.booking-step span {
+    color: #647f88;
+    font-size: 10px;
+    text-align: center;
+}
+
+.booking-step.done span {
+    color: #126e87;
+    font-weight: 600;
+}
+
+/* Status Messages */
+
+.booking-status-message {
+    color: #647f88;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 15px 0 0;
+}
+
+.booking-success-message,
+.booking-warning-message {
+    padding: 12px 14px;
+    margin: 14px 0 0;
+
+    border-radius: 9px;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.booking-success-message {
+    background: #dff3e9;
+    color: #27865c;
+}
+
+.booking-warning-message {
+    background: #fce5e7;
+    color: #b84552;
+}
+
+/* Card Footer */
+
+.patient-booking-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 17px 22px;
+    border-top: 1px solid #dce8eb;
+}
+
+.patient-booking-footer > div:first-child {
+    flex: 1;
+}
+
+.patient-booking-footer .reservation-fee {
+    font-size: 22px;
+}
+
+.booking-detail-button {
+    color: #126e87;
+    background: #e7f2f3;
+
+    border: 1px solid transparent;
+    border-radius: 9px;
+
+    padding: 11px 14px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.booking-detail-button:hover {
+    color: #0d566b;
+    background: #dceff0;
+}
+
+/* Detail Modal */
+
+.booking-detail-modal {
+    border: 1px solid #dce8eb;
+    border-radius: 16px;
+    background: #fcfefe;
+    color: #163b46;
+}
+
+.booking-detail-modal .modal-header,
+.booking-detail-modal .modal-footer {
+    border-color: #dce8eb;
+}
+
+.booking-detail-modal .modal-body {
+    padding: 22px;
+}
+
+.booking-detail-summary {
+    background: #e7f2f3;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.booking-complaint {
+    background: #f0f6f7;
+    border: 1px solid #dce8eb;
+    border-radius: 9px;
+
+    padding: 14px;
+
+    font-size: 13px;
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 575.98px) {
+
+    .patient-booking-header {
+        padding: 13px 15px;
+    }
+
+    .patient-booking-code {
+        font-size: 10px;
+    }
+
+    .patient-booking-body {
+        padding: 16px;
+    }
+
+    .patient-booking-doctor h5 {
+        font-size: 16px;
+    }
+
+    .patient-booking-schedule {
+        gap: 8px;
+    }
+
+    .patient-booking-schedule > div {
+        gap: 6px;
+    }
+
+    .patient-booking-schedule i {
+        font-size: 14px;
+    }
+
+    .patient-booking-schedule small {
+        font-size: 10px;
+    }
+
+    .patient-booking-schedule strong {
+        font-size: 12px;
+    }
+
+    .patient-booking-progress {
+        padding: 12px 8px;
+    }
+
+    .patient-booking-progress h6 {
+        margin-left: 5px;
+    }
+
+    .booking-step-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    .booking-step:not(:last-child)::after {
+        top: 14px;
+        left: calc(50% + 15px);
+        width: calc(100% - 30px);
+    }
+
+    .booking-step span {
+        font-size: 9px;
+    }
+
+    .patient-booking-footer {
+        padding: 15px;
+    }
+
+    .patient-booking-footer > div:first-child {
+        flex: 0 0 100%;
+    }
+
+    .patient-booking-footer .btn {
+        flex: 1;
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .patient-booking-card {
+        transition: none;
+    }
+}
+
+
 
 /* Mobile */
 

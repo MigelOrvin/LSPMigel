@@ -22,10 +22,13 @@ class ReservationController extends Controller
     // Menampilkan riwayat reservasi pasien
     public function index(Request $request)
     {
-        $reservations = Reservation::with('schedule.doctor')
-            ->where('user_id', $request->user()->id)
-            ->latest()
-            ->paginate(10);
+        $reservations = Reservation::with([
+            'schedule.doctor',
+            'payment'
+        ])
+        ->where('user_id', $request->user()->id)
+        ->latest()
+        ->paginate(8);
 
         return view(
             'patient.reservations.index',

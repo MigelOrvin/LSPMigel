@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
 
 use App\Http\Controllers\Patient\ReservationController as PatientReservationController;
-
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'showLogin']);
     
@@ -74,6 +74,16 @@ Route::prefix('admin')
         PatientController::class,
         'updateStatus'
     ])->name('patients.status');
+
+    Route::get('/reservations', [
+        AdminReservationController::class,
+        'index'
+    ])->name('reservations.index');
+
+    Route::patch('/reservations/{reservation}/status', [
+        AdminReservationController::class,
+        'updateStatus'
+    ])->name('reservations.status');
 
 });
 

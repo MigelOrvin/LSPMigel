@@ -317,4 +317,84 @@ class ReservationService
             ]);
         }, 3);
     }
+
+    public function verifyReservation(
+        Reservation $reservation,
+        User $admin,
+        string $status,
+        ?string $note = null
+    ): Reservation {
+
+        abort_unless(
+            $admin->role === 'admin' &&
+            $admin->status === 'approved',
+            403
+        );
+
+        if (!in_array($status, ['approved', 'rejected'], true)) {
+            throw ValidationException::withMessages([
+                'status' => 'Status verifikasi tidak valid.'
+            ]);
+        }
+
+        return DB::transaction(function () use (
+            $reservation,
+            $admin,
+            $status,
+            $note
+        ) {
+
+            // Lock jadwal terlebih dahulu
+            Schedule::whereKey($reservation->schedule_id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            // Ambil status reservasi terbaru
+            $reservation = Reservation::whereKey($reservation->id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            // Hanya reservasi pending yang dapat diverifikasi
+            if ($reservation->status !== 'pending') {
+                throw ValidationException::withMessages([
+                    'status' => 'Reservasi sudah diverifikasi sebelumnya.'
+                ]);
+            }
+
+            $appointmentTime = CarbonImmutable::parse(
+                $reservation->reservation_date->format('Y-m-d')
+                    . ' '
+                    . $reservation->start_time,
+                self::TIMEZONE
+            );
+
+            // Jangan menyetujui jadwal yang sudah berlalu
+            if (
+                $status === 'approved' &&
+                $appointmentTime->lte(
+                    CarbonImmutable::now(self::TIMEZONE)
+                )
+            ) {
+                throw ValidationException::withMessages([
+                    'status' => 'Waktu pemeriksaan sudah berlalu.'
+                ]);
+            }
+
+            if ($status === 'rejected' && !trim($note ?? '')) {
+                throw ValidationException::withMessages([
+                    'admin_note' => 'Alasan penolakan wajib diisi.'
+                ]);
+            }
+
+            $reservation->update([
+                'status' => $status,
+                'admin_note' => $note,
+                'verified_by' => $admin->id,
+                'verified_at' => now()
+            ]);
+
+            return $reservation;
+
+        }, 3);
+    }
 }

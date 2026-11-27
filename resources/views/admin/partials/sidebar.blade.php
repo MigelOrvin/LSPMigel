@@ -56,10 +56,15 @@
             Jadwal Praktik
         </button>
 
-        <button class="sidebar-link" disabled>
+        <a href="{{ route('admin.reservations.index') }}"
+            class="sidebar-link
+                {{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
+
             <i class="bi bi-calendar-check"></i>
-            Reservasi
-        </button>
+
+            <span>Reservasi</span>
+
+        </a>
 
         <button class="sidebar-link" disabled>
             <i class="bi bi-wallet2"></i>
