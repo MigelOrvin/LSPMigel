@@ -11,6 +11,8 @@ use App\Http\Controllers\Patient\DashboardController as PatientDashboardControll
 
 use App\Http\Controllers\Patient\ReservationController as PatientReservationController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+
+use App\Http\Controllers\Patient\PaymentController;
 Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'showLogin']);
     
@@ -117,4 +119,14 @@ Route::prefix('patient')
         PatientReservationController::class,
         'store'
     ])->name('reservations.store');
+    
+    Route::get('/reservations/{reservation}/payment', [
+        PaymentController::class,
+        'create'
+    ])->name('payments.create');
+
+    Route::post('/reservations/{reservation}/payment', [
+        PaymentController::class,
+        'store'
+    ])->name('payments.store');
 });

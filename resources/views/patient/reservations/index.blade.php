@@ -391,39 +391,19 @@
 
                     @if ($canPay)
 
-                        @if (\Illuminate\Support\Facades\Route::has(
-                            'patient.payments.create'
-                        ))
+                        <a href="{{ route(
+                            'patient.payments.create',
+                            $reservation
+                        ) }}"
+                            class="btn portal-primary-button">
 
-                            <a href="{{ route(
-                                'patient.payments.create',
-                                $reservation
-                            ) }}"
-                                class="btn portal-primary-button">
+                            <i class="bi bi-wallet2 me-1"></i>
 
-                                <i class="bi bi-wallet2 me-1"></i>
+                            {{ $displayStatus === 'payment_rejected'
+                                ? 'Upload Ulang'
+                                : 'Bayar Sekarang' }}
 
-                                {{ $displayStatus === 'payment_rejected'
-                                    ? 'Upload Ulang'
-                                    : 'Bayar Sekarang' }}
-
-                            </a>
-
-                        @else
-
-                            <button type="button"
-                                class="btn portal-primary-button"
-                                disabled>
-
-                                <i class="bi bi-wallet2 me-1"></i>
-
-                                {{ $displayStatus === 'payment_rejected'
-                                    ? 'Upload Ulang'
-                                    : 'Bayar Sekarang' }}
-
-                            </button>
-
-                        @endif
+                        </a>
 
                     @endif
 

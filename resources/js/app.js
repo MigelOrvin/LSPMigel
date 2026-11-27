@@ -5,3 +5,4 @@ import './admin.js'
 import './patient.js';
 import './reservation.js';
 import './admin-reservation.js';
+import './payment.js';

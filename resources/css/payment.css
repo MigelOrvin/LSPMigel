@@ -1,0 +1,358 @@
+
+/* ========================================
+   DENTALCARE — PATIENT PAYMENT
+======================================== */
+
+.payment-card {
+    padding: 26px;
+    min-width: 0;
+}
+
+.payment-card hr {
+    border-color: var(--portal-border);
+    opacity: 1;
+    margin: 24px 0;
+}
+
+/* Reservation Summary */
+
+.payment-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.payment-summary-list small {
+    display: block;
+    color: var(--portal-muted);
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.payment-summary-list strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.payment-total {
+    color: var(--portal-primary);
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+/* Payment Method */
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 16px;
+
+    background: #f0f6f7;
+    border: 1px solid #80b6c0;
+    border-radius: 12px;
+}
+
+.payment-method-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 10px;
+    background: #dceff0;
+    color: var(--portal-primary);
+    font-size: 23px;
+}
+
+.payment-method-check {
+    color: var(--portal-primary);
+    font-size: 20px;
+}
+
+.payment-bank-information {
+    padding: 20px;
+
+    background: #f6f9fa;
+    border: 1px solid var(--portal-border);
+    border-radius: 12px;
+}
+
+.payment-bank-label {
+    display: block;
+
+    color: var(--portal-muted);
+    font-size: 12px;
+
+    margin-bottom: 5px;
+}
+
+.payment-account-number {
+    color: var(--portal-primary);
+    font-size: 26px;
+    font-weight: 750;
+    letter-spacing: 1px;
+    overflow-wrap: anywhere;
+}
+
+.payment-copy-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    background: #dceff0;
+    color: var(--portal-primary);
+
+    border-radius: 8px;
+    padding: 8px 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.payment-copy-button:hover {
+    background: #cce4e8;
+    color: var(--portal-primary);
+}
+
+/* Instructions */
+
+.payment-instructions {
+    color: var(--portal-text);
+}
+
+.payment-instructions ol {
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--portal-muted);
+}
+
+.payment-instructions li {
+    padding-left: 4px;
+    margin-bottom: 5px;
+}
+
+.payment-instructions strong {
+    color: var(--portal-primary);
+}
+
+/* ========================================
+   UPLOAD AREA
+======================================== */
+
+.payment-upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 210px;
+    width: 100%;
+    padding: 28px 18px;
+
+    border: 2px dashed #b8d4d9;
+    border-radius: 14px;
+
+    background: #f6fafb;
+    cursor: pointer;
+    text-align: center;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.payment-upload-area > i {
+    color: var(--portal-primary);
+    font-size: 43px;
+    margin-bottom: 5px;
+}
+
+.payment-upload-area strong {
+    color: var(--portal-primary);
+    font-size: 14px;
+}
+
+.payment-upload-area span {
+    color: var(--portal-muted);
+    font-size: 12px;
+}
+
+.payment-upload-area small {
+    color: var(--portal-muted);
+    font-size: 11px;
+}
+
+.payment-upload-area:hover,
+.payment-upload-area.dragging {
+    background: #e7f2f3;
+    border-color: var(--portal-primary);
+}
+
+#payment-proof:focus-visible + .payment-upload-area {
+    outline: 3px solid #80b6c0;
+    outline-offset: 3px;
+}
+
+.payment-upload-area[hidden],
+.payment-preview[hidden] {
+    display: none !important;
+}
+
+/* ========================================
+   IMAGE PREVIEW
+======================================== */
+
+.payment-preview {
+    overflow: hidden;
+
+    background: #f6f9fa;
+    border: 1px solid var(--portal-border);
+    border-radius: 12px;
+}
+
+.payment-preview > img {
+    display: block;
+
+    width: 100%;
+    height: 280px;
+
+    padding: 12px;
+    object-fit: contain;
+}
+
+.payment-preview-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    background: #fcfefe;
+    border-top: 1px solid var(--portal-border);
+}
+
+.payment-file-information {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.payment-file-information strong {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.payment-file-information small {
+    font-size: 11px;
+    color: var(--portal-muted);
+}
+
+.payment-remove-button {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 38px;
+    height: 38px;
+
+    background: #fce5e7;
+    color: #b84552;
+    border-radius: 8px;
+}
+
+.payment-remove-button:hover {
+    background: #f6ced2;
+    color: #b84552;
+}
+
+/* Payment Notice */
+
+.payment-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 16px;
+
+    background: #e7f2f3;
+    color: var(--portal-primary);
+    border-radius: 10px;
+}
+
+.payment-notice > i {
+    font-size: 20px;
+}
+
+.payment-notice strong {
+    font-size: 13px;
+}
+
+.payment-notice p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--portal-muted);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 575.98px) {
+
+    .payment-card {
+        padding: 18px;
+    }
+
+    .payment-total {
+        font-size: 25px;
+    }
+
+    .payment-account-number {
+        font-size: 20px;
+    }
+
+    .payment-bank-information {
+        padding: 16px;
+    }
+
+    .payment-method {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .payment-method-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 19px;
+    }
+
+    .payment-upload-area {
+        min-height: 180px;
+        padding: 20px 12px;
+    }
+
+    .payment-preview > img {
+        height: 220px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .payment-upload-area {
+        transition: none;
+    }
+}

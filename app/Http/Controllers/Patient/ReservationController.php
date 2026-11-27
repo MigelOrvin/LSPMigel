@@ -104,12 +104,12 @@ class ReservationController extends Controller
             );
 
         return redirect()
-            ->route('patient.reservations.index')
-            ->with(
-                'success',
-                'Reservasi berhasil diajukan. Kode reservasi: '
-                    . $reservation->reservation_code
-            );
+        ->route('patient.payments.create', $reservation)
+        ->with(
+            'success',
+            'Reservasi berhasil diajukan. '
+            . 'Silakan lanjutkan pembayaran.'
+        );
     }
 
     // Validasi rentang tanggal reservasi

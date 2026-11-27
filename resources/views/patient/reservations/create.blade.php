@@ -322,8 +322,9 @@
                 <p class="reservation-muted small
                     text-center mt-3 mb-0">
 
-                    Reservasi akan diverifikasi oleh admin
-                    sebelum Anda melakukan pembayaran.
+                    Anda akan diarahkan ke halaman pembayaran.
+                    Reservasi akan diverifikasi setelah pembayaran
+                    berhasil dikonfirmasi.
 
                 </p>
 
