@@ -273,14 +273,13 @@
 
                     </div>
 
-                    <button type="button"
-                        class="btn portal-primary-button w-100 mt-auto"
-                        disabled>
+                    <a href="{{ route('patient.reservations.create', $doctor) }}"
+                        class="btn portal-primary-button w-100 mt-auto">
 
                         <i class="bi bi-calendar-plus me-1"></i>
                         Buat Reservasi
 
-                    </button>
+                    </a>
 
                 </article>
 

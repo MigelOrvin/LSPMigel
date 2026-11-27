@@ -1,0 +1,354 @@
+
+/* ========================================
+   DENTALCARE — RESERVATION
+======================================== */
+
+.reservation-back {
+    color: var(--portal-primary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.reservation-title {
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.8px;
+}
+
+.reservation-muted {
+    color: var(--portal-muted);
+}
+
+.reservation-card {
+    padding: 26px;
+}
+
+.reservation-card hr {
+    border-color: var(--portal-border);
+    opacity: 1;
+    margin: 24px 0;
+}
+
+/* Doctor Profile */
+
+.reservation-doctor-profile {
+    text-align: center;
+}
+
+.reservation-doctor-photo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 18px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 20px;
+    background: #dceff0;
+    color: var(--portal-primary);
+    overflow: hidden;
+    font-size: 48px;
+}
+
+.reservation-doctor-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reservation-doctor-profile h5 {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.reservation-fee {
+    font-size: 25px;
+    font-weight: 750;
+    color: var(--portal-primary);
+}
+
+/* Form */
+
+.reservation-input {
+    padding: 12px 14px;
+    border: 1px solid var(--portal-border);
+    border-radius: 10px;
+    font-size: 14px;
+    background: #fcfefe;
+    color: var(--portal-text);
+}
+
+.reservation-input:focus {
+    border-color: #80b6c0;
+    box-shadow: 0 0 0 3px rgba(18, 110, 135, 0.1);
+}
+
+#reservation-day {
+    display: block;
+    margin-top: 8px;
+}
+
+/* Time Slots */
+
+.reservation-slots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.slot-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    min-height: 76px;
+    padding: 10px;
+
+    background: #fcfefe;
+    color: var(--portal-primary);
+
+    border: 1px solid #b8d4d9;
+    border-radius: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.slot-button strong {
+    font-size: 14px;
+}
+
+.slot-button small {
+    font-size: 11px;
+}
+
+.slot-button:hover:not(:disabled) {
+    background: #edf6f6;
+    border-color: var(--portal-primary);
+}
+
+.slot-button.selected {
+    background: #dceff0;
+    border-color: var(--portal-primary);
+    box-shadow: inset 0 0 0 1px var(--portal-primary);
+}
+
+.slot-button.unavailable {
+    background: #f0f3f4;
+    color: #8a9ca2;
+    border-color: #e2eaec;
+    cursor: not-allowed;
+}
+
+.slot-message {
+    padding: 16px;
+    margin-bottom: 10px;
+
+    background: #f0f6f7;
+    color: var(--portal-muted);
+
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Summary */
+
+.reservation-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 18px;
+
+    background: #f0f6f7;
+    border: 1px solid var(--portal-border);
+    border-radius: 12px;
+}
+
+/* Reservation History */
+
+.reservation-history-card {
+    padding: 22px;
+}
+
+.reservation-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.reservation-history-card .status-badge {
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   AVAILABLE DATE PICKER
+======================================== */
+
+.reservation-dates {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+
+    overflow-x: auto;
+    padding: 3px 2px 14px;
+
+    scroll-snap-type: x mandatory;
+
+    scrollbar-width: thin;
+    scrollbar-color: #b8d4d9 transparent;
+}
+
+.date-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 90px;
+    min-height: 125px;
+    gap: 4px;
+
+    padding: 12px 8px;
+
+    background: #fcfefe;
+    color: var(--portal-text);
+
+    border: 1px solid var(--portal-border);
+    border-radius: 12px;
+
+    scroll-snap-align: start;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.date-day {
+    color: var(--portal-muted);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.date-number {
+    color: var(--portal-primary);
+    font-size: 27px;
+    font-weight: 750;
+    line-height: 1.2;
+}
+
+.date-month {
+    color: var(--portal-muted);
+    font-size: 12px;
+}
+
+.date-availability {
+    margin-top: 6px;
+    color: #27865c;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.date-button:hover:not(:disabled) {
+    background: #edf6f6;
+    border-color: var(--portal-primary);
+}
+
+.date-button.selected {
+    background: #dceff0;
+    border-color: var(--portal-primary);
+    box-shadow: inset 0 0 0 1px var(--portal-primary);
+}
+
+.date-button.unavailable {
+    background: #f0f3f4;
+    border-color: #e2eaec;
+    cursor: not-allowed;
+}
+
+.date-button.unavailable .date-number {
+    color: #94a5ab;
+}
+
+.date-button.unavailable .date-availability {
+    color: #b84552;
+}
+
+@media (max-width: 575.98px) {
+
+    .reservation-dates {
+        gap: 8px;
+    }
+
+    .date-button {
+        flex-basis: 76px;
+        min-height: 110px;
+        padding: 10px 6px;
+    }
+
+    .date-number {
+        font-size: 23px;
+    }
+
+    .date-day,
+    .date-month {
+        font-size: 11px;
+    }
+
+    .date-availability {
+        font-size: 9px;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 575.98px) {
+
+    .reservation-title {
+        font-size: 24px;
+    }
+
+    .reservation-card,
+    .reservation-history-card {
+        padding: 18px;
+    }
+
+    .reservation-doctor-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .reservation-slots {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .slot-button {
+        min-height: 65px;
+    }
+
+    .slot-button strong {
+        font-size: 12px;
+    }
+
+    .reservation-fee {
+        font-size: 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .slot-button {
+        transition: none;
+    }
+}

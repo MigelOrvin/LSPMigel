@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
 
+use App\Http\Controllers\Patient\ReservationController as PatientReservationController;
+
 Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'showLogin']);
     
@@ -86,4 +88,23 @@ Route::prefix('patient')
         'index'
     ])->name('dashboard');
 
+    Route::get('/reservations', [
+        PatientReservationController::class,
+        'index'
+    ])->name('reservations.index');
+
+    Route::get('/reservations/create/{doctor}', [
+        PatientReservationController::class,
+        'create'
+    ])->name('reservations.create');
+
+    Route::get('/reservations/slots/{doctor}', [
+        PatientReservationController::class,
+        'slots'
+    ])->name('reservations.slots');
+
+    Route::post('/reservations/{doctor}', [
+        PatientReservationController::class,
+        'store'
+    ])->name('reservations.store');
 });

@@ -45,10 +45,16 @@
 
                 <li class="nav-item">
 
-                    <span class="nav-link disabled">
+                    <a href="{{ route('patient.reservations.index') }}"
+                        class="nav-link
+                        {{ request()->routeIs('patient.reservations.*')
+                            ? 'active'
+                            : '' }}">
+
                         <i class="bi bi-calendar-check me-1"></i>
                         Reservasi
-                    </span>
+
+                    </a>
 
                 </li>
 
