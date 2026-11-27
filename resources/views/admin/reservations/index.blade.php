@@ -35,6 +35,12 @@
             'value' => $rejectedReservations,
             'icon' => 'bi-x-circle',
             'color' => 'red'
+        ],
+        [
+            'label' => 'Kedaluwarsa',
+            'value' => $expiredReservations,
+            'icon' => 'bi-clock-history',
+            'color' => 'yellow'
         ]
     ];
 @endphp
@@ -112,7 +118,7 @@
 
         @foreach ($statistics as $stat)
 
-            <div class="col-4">
+        <div class="col-6 col-lg-3">
 
                 <div class="appointment-stat">
 
@@ -156,7 +162,13 @@
                 </small>
             </div>
 
-            @if ($search !== '' || $status !== 'all' || $doctorId || $date)
+            @if (
+                $search !== '' ||
+                $status !== 'all' ||
+                $doctorId ||
+                $date ||
+                $sort !== 'latest'
+            )
 
                 <a href="{{ route('admin.reservations.index') }}#appointment-list"
                     class="appointment-reset">
@@ -186,6 +198,7 @@
 
             </div>
 
+            
             <div class="row g-2 align-items-end">
 
                 {{-- Status --}}
@@ -250,7 +263,7 @@
                 </div>
 
                 {{-- Date --}}
-                <div class="col-12 col-md-6 col-xl-4">
+                <div class="col-12 col-md-6 col-xl-3">
 
                     <label class="appointment-filter-label">
                         Tanggal Pemeriksaan
@@ -264,20 +277,57 @@
 
                 </div>
 
-                <div class="col-12 col-md-6 col-xl-2">
+                {{-- Sorting --}}
+                <div class="col-12 col-md-6 col-xl-3">
+
+                    <label class="appointment-filter-label">
+                        Urutkan
+                    </label>
+
+                    <select name="sort"
+                        class="form-select appointment-input"
+                        aria-label="Urutkan reservasi">
+
+                        <option value="latest"
+                            @selected($sort === 'latest')>
+                            Terbaru
+                        </option>
+
+                        <option value="oldest"
+                            @selected($sort === 'oldest')>
+                            Terlama
+                        </option>
+
+                        <option value="schedule"
+                            @selected($sort === 'schedule')>
+                            Jadwal Pemeriksaan
+                        </option>
+
+                        <option value="priority"
+                            @selected($sort === 'priority')>
+                            Prioritas Verifikasi
+                        </option>
+
+                    </select>
+
+                </div>
+
+                {{-- Filter Button --}}
+                <div class="col-12 mt-3">
 
                     <button type="submit"
-                        class="btn btn-admin-primary w-100
-                            appointment-filter-button">
+                        class="btn btn-admin-primary
+                            appointment-filter-button w-100">
 
                         <i class="bi bi-funnel me-1"></i>
-                        Filter
+                        Terapkan Filter
 
                     </button>
 
                 </div>
 
             </div>
+
 
         </form>
 

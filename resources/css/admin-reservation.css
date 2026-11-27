@@ -712,6 +712,20 @@
     background: #f0f3f4;
     color: #647f88;
 }
+
+/* Expired Statistics */
+
+.appointment-stat-yellow {
+    background: #fff1d7;
+    color: #96651a;
+}
+
+/* Expired Status */
+
+.appointment-status-expired {
+    background: #fff1d7;
+    color: #96651a;
+}
 /* ========================================
    RESPONSIVE
 ======================================== */

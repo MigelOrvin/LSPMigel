@@ -20,14 +20,15 @@ class ReservationController extends Controller
             'search' => 'nullable|string|max:255',
             'status' => 'nullable|in:all,pending,approved,rejected,confirmed,completed,cancelled,expired',
             'doctor_id' => 'nullable|integer|exists:doctors,id',
-            'date' => 'nullable|date_format:Y-m-d'
+            'date' => 'nullable|date_format:Y-m-d',
+            'sort' => 'nullable|in:latest,oldest,schedule,priority'
         ]);
 
         $search = trim($validated['search'] ?? '');
         $status = $validated['status'] ?? 'all';
         $doctorId = $validated['doctor_id'] ?? null;
         $date = $validated['date'] ?? null;
-
+        $sort = $validated['sort'] ?? 'latest';
         // Statistik keseluruhan
         $totalReservations = Reservation::count();
 
@@ -49,6 +50,19 @@ class ReservationController extends Controller
         $rejectedReservations = Reservation::where(
             'status', 'rejected'
         )->count();
+
+        $expiredReservations = Reservation::query()
+        ->where(function ($query) {
+
+            $query->where('status', 'expired')
+
+                ->orWhere(function ($query) {
+
+                    $query->expiredUnpaid();
+
+                });
+        })
+        ->count();
 
         // Data dokter untuk filter
         $doctors = Doctor::orderBy('name')->get();
@@ -150,28 +164,48 @@ class ReservationController extends Controller
 
         })
 
-        // Prioritaskan reservasi pending
-        ->orderByRaw("
-            CASE
-                WHEN reservations.status = 'pending'
-                    AND EXISTS (
-                        SELECT 1
-                        FROM payments
-                        WHERE payments.reservation_id = reservations.id
-                            AND payments.status = 'approved'
-                    )
-                THEN 0
+        // Sorting reservasi
+        ->when($sort === 'latest', function ($query) {
 
-                WHEN reservations.status = 'pending'
-                THEN 1
+            $query->orderByDesc('created_at')
+                ->orderByDesc('id');
 
-                ELSE 2
-            END
-        ")
+        })
 
-        ->orderBy('reservation_date')
-        ->orderBy('start_time')
-        ->orderByDesc('id')
+        ->when($sort === 'oldest', function ($query) {
+
+            $query->orderBy('created_at')
+                ->orderBy('id');
+
+        })
+
+        ->when($sort === 'schedule', function ($query) {
+
+            $query->orderBy('reservation_date')
+                ->orderBy('start_time')
+                ->orderByDesc('id');
+
+        })
+
+        ->when($sort === 'priority', function ($query) {
+
+            $query->orderByRaw("
+                CASE
+                    WHEN reservations.status = 'pending'
+                        AND EXISTS (
+                            SELECT 1
+                            FROM payments
+                            WHERE payments.reservation_id = reservations.id
+                                AND payments.status = 'approved'
+                        )
+                    THEN 0
+                    ELSE 1
+                END
+            ")
+            ->orderByDesc('created_at')
+            ->orderByDesc('id');
+
+        })
 
         ->paginate(8)
         ->withQueryString();
@@ -183,10 +217,12 @@ class ReservationController extends Controller
             'status',
             'doctorId',
             'date',
+            'sort',
             'totalReservations',
             'pendingReservations',
             'approvedReservations',
-            'rejectedReservations'
+            'rejectedReservations',
+            'expiredReservations'
         ));
     }
 
