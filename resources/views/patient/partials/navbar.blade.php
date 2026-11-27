@@ -61,15 +61,6 @@
                 <li class="nav-item">
 
                     <span class="nav-link disabled">
-                        <i class="bi bi-clock-history me-1"></i>
-                        Riwayat
-                    </span>
-
-                </li>
-
-                <li class="nav-item">
-
-                    <span class="nav-link disabled">
                         <i class="bi bi-megaphone me-1"></i>
                         Pengumuman
                     </span>

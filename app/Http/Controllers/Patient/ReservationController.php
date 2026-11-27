@@ -22,17 +22,30 @@ class ReservationController extends Controller
     // Menampilkan riwayat reservasi pasien
     public function index(Request $request)
     {
-        $reservations = Reservation::with([
+        $query = Reservation::with([
             'schedule.doctor',
             'payment'
-        ])
-        ->where('user_id', $request->user()->id)
-        ->latest()
-        ->paginate(8);
+        ])->where('user_id', $request->user()->id);
+
+        $activeReservations = (clone $query)
+            ->active()
+            ->orderBy('reservation_date')
+            ->orderBy('start_time')
+            ->get();
+
+        $historyReservations = (clone $query)
+            ->history()
+            ->orderByDesc('reservation_date')
+            ->orderByDesc('start_time')
+            ->orderByDesc('id')
+            ->paginate(6, ['*'], 'history_page');
 
         return view(
             'patient.reservations.index',
-            compact('reservations')
+            compact(
+                'activeReservations',
+                'historyReservations'
+            )
         );
     }
 

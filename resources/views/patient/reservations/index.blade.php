@@ -1,4 +1,3 @@
-
 @extends('layouts.patient')
 
 @section('title', 'Reservasi Saya - DentalCare')
@@ -43,6 +42,7 @@
             'Selesai',
             'approved'
         ],
+        'expired' => ['Waktu Pembayaran Habis', 'waiting'],
         'cancelled' => [
             'Dibatalkan',
             'rejected'
@@ -76,10 +76,15 @@
 
 </div>
 
+<div class="reservation-section-heading mb-3">
+    <h5>Reservasi Aktif <span class="reservation-section-count">{{ $activeReservations->count() }}</span></h5>
+    <p>Pantau progres dan jadwal pemeriksaan Anda.</p>
+</div>
+
 {{-- Reservation Cards --}}
 <div class="row g-3 g-xl-4">
 
-    @forelse ($reservations as $reservation)
+    @forelse ($activeReservations as $reservation)
 
         @php
             $doctor = $reservation->schedule->doctor;
@@ -103,12 +108,7 @@
                 'Asia/Jakarta'
             )->gt(now('Asia/Jakarta'));
 
-            $canPay = $reservation->status === 'pending'
-                && $isUpcoming
-                && (
-                    !$reservation->payment ||
-                    $reservation->payment->status === 'rejected'
-                );
+            $canPay = $reservation->can_pay;
 
             $steps = [
                 [
@@ -291,21 +291,6 @@
 
                         </p>
 
-                    @elseif ($displayStatus === 'payment_rejected')
-
-                        <div class="booking-warning-message">
-
-                            <strong>Pembayaran ditolak.</strong>
-
-                            <p class="mb-0">
-
-                                {{ $reservation->payment?->admin_note
-                                    ?? 'Silakan unggah ulang bukti pembayaran.' }}
-
-                            </p>
-
-                        </div>
-
                     @elseif ($displayStatus === 'reservation_pending')
 
                         <p class="booking-status-message">
@@ -317,7 +302,7 @@
 
                         </p>
 
-                    @elseif ($displayStatus === 'approved')
+                    @elseif (in_array($displayStatus, ['approved', 'confirmed'], true))
 
                         <p class="booking-success-message">
 
@@ -327,32 +312,6 @@
                             Datang sesuai jadwal pemeriksaan.
 
                         </p>
-
-                    @elseif ($displayStatus === 'rejected')
-
-                        <div class="booking-warning-message">
-
-                            <strong>Reservasi ditolak.</strong>
-
-                            <p class="mb-1">
-
-                                {{ $reservation->admin_note
-                                    ?? 'Reservasi tidak dapat diproses.' }}
-
-                            </p>
-
-                            @if ($isPaid)
-
-                                <small>
-
-                                    Hubungi klinik untuk proses
-                                    pengembalian dana.
-
-                                </small>
-
-                            @endif
-
-                        </div>
 
                     @endif
 
@@ -399,9 +358,7 @@
 
                             <i class="bi bi-wallet2 me-1"></i>
 
-                            {{ $displayStatus === 'payment_rejected'
-                                ? 'Upload Ulang'
-                                : 'Bayar Sekarang' }}
+                            Bayar Sekarang
 
                         </a>
 
@@ -439,7 +396,7 @@
 
                 </div>
 
-                <h6>Belum ada reservasi</h6>
+                <h6>Belum ada reservasi aktif</h6>
 
                 <p>
                     Silakan buat reservasi pemeriksaan
@@ -461,10 +418,6 @@
 
 </div>
 
-<div class="mt-4">
-
-    {{ $reservations->links() }}
-
-</div>
+@include('patient.reservations.history')
 
 @endsection

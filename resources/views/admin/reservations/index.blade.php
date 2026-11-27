@@ -8,12 +8,13 @@
 
 @php
     $statuses = [
-        'pending' => 'Menunggu Verifikasi',
-        'approved' => 'Menunggu Pembayaran',
+        'pending' => 'Siap Diverifikasi',
+        'approved' => 'Reservasi Disetujui',
         'rejected' => 'Ditolak',
         'confirmed' => 'Terkonfirmasi',
         'completed' => 'Selesai',
-        'cancelled' => 'Dibatalkan'
+        'cancelled' => 'Dibatalkan',
+        'expired' => 'Waktu Pembayaran Habis'
     ];
 
     $statistics = [
@@ -78,9 +79,14 @@
 
             <p>
                 @if ($pendingReservations > 0)
-                    Pengajuan pemeriksaan menunggu verifikasi Anda.
+
+                    Terdapat reservasi dengan pembayaran
+                    terverifikasi yang menunggu persetujuan Anda.
+
                 @else
-                    Semua pengajuan telah ditinjau.
+
+                    Tidak ada reservasi yang siap diverifikasi.
+
                 @endif
             </p>
 
@@ -283,18 +289,58 @@
         @forelse ($reservations as $reservation)
 
             @php
-                $doctor = $reservation->schedule->doctor;
+            $displayStatus = $reservation->display_status;
 
-                $isPast = \Carbon\CarbonImmutable::parse(
-                    $reservation->reservation_date->format('Y-m-d')
-                        . ' '
-                        . $reservation->start_time,
-                    'Asia/Jakarta'
-                )->lte(
-                    \Carbon\CarbonImmutable::now('Asia/Jakarta')
-                );
-            @endphp
+            $paymentStatus = $reservation->payment?->status;
 
+            $isPaid = $paymentStatus === 'approved';
+
+            $canVerify = $displayStatus === 'reservation_pending'
+                && $isPaid;
+
+            $paymentLabel = match ($paymentStatus) {
+                'pending' => 'Verifikasi Pembayaran',
+                'approved' => 'Pembayaran Terverifikasi',
+                'rejected' => 'Pembayaran Ditolak',
+                default => $displayStatus === 'expired'
+                    ? 'Waktu Pembayaran Habis'
+                    : 'Belum Membayar'
+            };
+
+            $reservationLabel = match ($displayStatus) {
+                'awaiting_payment' => 'Menunggu Pembayaran',
+                'payment_pending' => 'Verifikasi Pembayaran',
+                'payment_rejected' => 'Pembayaran Ditolak',
+                'reservation_pending' => 'Siap Diverifikasi',
+                'expired' => 'Waktu Pembayaran Habis',
+                default => $statuses[$reservation->status]
+            };
+
+            $statusClass = match ($displayStatus) {
+                'payment_rejected' => 'rejected',
+                'expired' => 'expired',
+                default => $reservation->status
+            };
+
+            $adminNote = $displayStatus === 'payment_rejected'
+                ? $reservation->payment?->admin_note
+                : $reservation->admin_note;
+
+            $verifier = $displayStatus === 'payment_rejected'
+                ? $reservation->payment?->verifier?->name
+                : $reservation->verifier?->name;
+
+            $doctor = $reservation->schedule->doctor;
+
+            $isPast = \Carbon\CarbonImmutable::parse(
+                $reservation->reservation_date->format('Y-m-d')
+                    . ' '
+                    . $reservation->start_time,
+                'Asia/Jakarta'
+            )->lte(
+                \Carbon\CarbonImmutable::now('Asia/Jakarta')
+            );
+        @endphp
             <div class="col-12 col-xl-6">
 
                 <article class="appointment-card">
@@ -309,9 +355,9 @@
                         </span>
 
                         <span class="appointment-status
-                            appointment-status-{{ $reservation->status }}">
+                            appointment-status-{{ $statusClass }}">
 
-                            {{ $statuses[$reservation->status] }}
+                            {{ $reservationLabel }}
 
                         </span>
 
@@ -404,6 +450,31 @@
 
                             </div>
 
+                            <div class="appointment-payment-indicator
+                                {{ $isPaid
+                                    ? 'payment-verified'
+                                    : (in_array($displayStatus, [
+                                        'payment_rejected',
+                                        'expired'
+                                    ], true)
+                                        ? 'payment-failed'
+                                        : 'payment-waiting') }}">
+
+                                <i class="bi
+                                    {{ $isPaid
+                                        ? 'bi-shield-check'
+                                        : (in_array($displayStatus, [
+                                            'payment_rejected',
+                                            'expired'
+                                        ], true)
+                                            ? 'bi-x-circle'
+                                            : 'bi-hourglass-split') }}">
+                                </i>
+
+                                <span>{{ $paymentLabel }}</span>
+
+                            </div>
+
                         </div>
 
                     </div>
@@ -420,77 +491,106 @@
 
                     @endif
 
-                    {{-- Card Actions --}}
-                    <div class="appointment-card-footer">
+                                            
+                        {{-- Card Actions --}}
+                        <div class="appointment-card-footer">
 
-                        <button type="button"
-                            class="btn appointment-detail-button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#appointmentDetailModal"
-                            data-reservation="{{ $reservation->reservation_code }}"
-                            data-patient="{{ $reservation->user->name }}"
-                            data-email="{{ $reservation->user->email }}"
-                            data-doctor="{{ $doctor->name }}"
-                            data-date="{{ $reservation->reservation_date->locale('id')->translatedFormat('l, d F Y') }}"
-                            data-time="{{ substr($reservation->start_time, 0, 5) }} - {{ substr($reservation->end_time, 0, 5) }} WIB"
-                            data-fee="Rp{{ number_format($reservation->total_amount, 0, ',', '.') }}"
-                            data-complaint="{{ $reservation->complaint }}"
-                            data-status="{{ $statuses[$reservation->status] }}"
-                            data-note="{{ $reservation->admin_note ?? '-' }}"
-                            data-verifier="{{ $reservation->verifier?->name ?? '-' }}">
+                            <button type="button"
+                                class="btn appointment-detail-button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#appointmentDetailModal"
+                                data-reservation="{{ $reservation->reservation_code }}"
+                                data-patient="{{ $reservation->user->name }}"
+                                data-email="{{ $reservation->user->email }}"
+                                data-doctor="{{ $doctor->name }}"
+                                data-date="{{ $reservation->reservation_date->locale('id')->translatedFormat('l, d F Y') }}"
+                                data-time="{{ substr($reservation->start_time, 0, 5) }} - {{ substr($reservation->end_time, 0, 5) }} WIB"
+                                data-fee="Rp{{ number_format($reservation->total_amount, 0, ',', '.') }}"
+                                data-complaint="{{ $reservation->complaint }}"
+                                data-status="{{ $reservationLabel }}"
+                                data-note="{{ $adminNote ?? '-' }}"
+                                data-verifier="{{ $verifier ?? '-' }}"
 
-                            <i class="bi bi-eye me-1"></i>
-                            Detail
+                                <i class="bi bi-eye me-1"></i>
+                                Detail
 
-                        </button>
+                            </button>
 
-                        @if ($reservation->status === 'pending')
+                            @if ($canVerify)
 
-                            <div class="appointment-verification-actions">
+                                <div class="appointment-verification-actions">
 
-                                <button type="button"
-                                    class="btn appointment-reject-button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#appointmentVerificationModal"
-                                    data-status="rejected"
-                                    data-patient="{{ $reservation->user->name }}"
-                                    data-code="{{ $reservation->reservation_code }}"
-                                    data-url="{{ route('admin.reservations.status', $reservation) }}">
+                                    <button type="button"
+                                        class="btn appointment-reject-button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#appointmentVerificationModal"
+                                        data-status="rejected"
+                                        data-patient="{{ $reservation->user->name }}"
+                                        data-code="{{ $reservation->reservation_code }}"
+                                        data-url="{{ route('admin.reservations.status', $reservation) }}">
 
-                                    <i class="bi bi-x-lg me-1"></i>
-                                    Tolak
+                                        <i class="bi bi-x-lg me-1"></i>
+                                        Tolak
 
-                                </button>
+                                    </button>
 
-                                <button type="button"
-                                    class="btn appointment-approve-button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#appointmentVerificationModal"
-                                    data-status="approved"
-                                    data-patient="{{ $reservation->user->name }}"
-                                    data-code="{{ $reservation->reservation_code }}"
-                                    data-url="{{ route('admin.reservations.status', $reservation) }}"
-                                    @disabled($isPast)>
+                                    <button type="button"
+                                        class="btn appointment-approve-button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#appointmentVerificationModal"
+                                        data-status="approved"
+                                        data-patient="{{ $reservation->user->name }}"
+                                        data-code="{{ $reservation->reservation_code }}"
+                                        data-url="{{ route('admin.reservations.status', $reservation) }}"
+                                        @disabled($isPast)>
 
-                                    <i class="bi bi-check-lg me-1"></i>
-                                    Setujui
+                                        <i class="bi bi-check-lg me-1"></i>
+                                        Setujui
 
-                                </button>
+                                    </button>
 
-                            </div>
+                                </div>
 
-                        @else
+                            @elseif ($displayStatus === 'payment_rejected')
 
-                            <small class="appointment-muted">
+                                <small class="appointment-muted text-danger">
 
-                                <i class="bi bi-check2-all me-1"></i>
-                                Tidak ada tindakan
+                                    <i class="bi bi-x-circle me-1"></i>
+                                    Pembayaran ditolak
 
-                            </small>
+                                </small>
 
-                        @endif
+                            @elseif ($displayStatus === 'expired')
 
-                    </div>
+                                <small class="appointment-muted">
+
+                                    <i class="bi bi-clock-history me-1"></i>
+                                    Waktu pembayaran habis
+
+                                </small>
+
+                            @elseif ($reservation->status === 'pending')
+
+                                <small class="appointment-muted">
+
+                                    <i class="bi bi-lock me-1"></i>
+                                    Menunggu pembayaran terverifikasi
+
+                                </small>
+
+                            @else
+
+                                <small class="appointment-muted">
+
+                                    <i class="bi bi-check2-all me-1"></i>
+                                    Tidak ada tindakan
+
+                                </small>
+
+                            @endif
+
+                        </div>
+
 
                 </article>
 

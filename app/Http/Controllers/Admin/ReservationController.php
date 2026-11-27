@@ -18,7 +18,7 @@ class ReservationController extends Controller
     {
         $validated = $request->validate([
             'search' => 'nullable|string|max:255',
-            'status' => 'nullable|in:all,pending,approved,rejected,confirmed,completed,cancelled',
+            'status' => 'nullable|in:all,pending,approved,rejected,confirmed,completed,cancelled,expired',
             'doctor_id' => 'nullable|integer|exists:doctors,id',
             'date' => 'nullable|date_format:Y-m-d'
         ]);
@@ -33,7 +33,13 @@ class ReservationController extends Controller
 
         $pendingReservations = Reservation::where(
             'status', 'pending'
-        )->count();
+        )
+        ->whereHas('payment', function ($query) {
+
+            $query->where('status', 'approved');
+
+        })
+        ->count();
 
         $approvedReservations = Reservation::whereIn(
             'status',
@@ -51,7 +57,8 @@ class ReservationController extends Controller
         $reservations = Reservation::with([
             'user',
             'schedule.doctor',
-            'verifier'
+            'verifier',
+            'payment.verifier'
         ])
 
         // Search
@@ -95,7 +102,34 @@ class ReservationController extends Controller
         // Filter status
         ->when($status !== 'all', function ($query) use ($status) {
 
-            $query->where('status', $status);
+            if ($status === 'expired') {
+
+                $query->where(function ($query) {
+
+                    $query->where('status', 'expired')
+
+                        ->orWhere(function ($query) {
+
+                            $query->expiredUnpaid();
+
+                        });
+                });
+
+            } elseif ($status === 'pending') {
+
+                $query->where('status', 'pending')
+
+                    ->whereHas('payment', function ($query) {
+
+                        $query->where('status', 'approved');
+
+                    });
+
+            } else {
+
+                $query->where('status', $status);
+
+            }
 
         })
 
@@ -118,7 +152,21 @@ class ReservationController extends Controller
 
         // Prioritaskan reservasi pending
         ->orderByRaw("
-            CASE WHEN status = 'pending' THEN 0 ELSE 1 END
+            CASE
+                WHEN reservations.status = 'pending'
+                    AND EXISTS (
+                        SELECT 1
+                        FROM payments
+                        WHERE payments.reservation_id = reservations.id
+                            AND payments.status = 'approved'
+                    )
+                THEN 0
+
+                WHEN reservations.status = 'pending'
+                THEN 1
+
+                ELSE 2
+            END
         ")
 
         ->orderBy('reservation_date')
@@ -166,8 +214,12 @@ class ReservationController extends Controller
             );
 
         $message = $reservation->status === 'approved'
+
             ? 'Reservasi berhasil disetujui.'
-            : 'Reservasi berhasil ditolak. Slot dapat dipesan kembali jika waktunya belum berlalu.';
+
+            : 'Reservasi berhasil ditolak. '
+                . 'Slot kembali tersedia jika waktunya belum berlalu. '
+                . 'Silakan proses pengembalian dana secara manual.';
 
         return back()->with('success', $message);
     }

@@ -686,7 +686,32 @@
     color: #b84552;
     background: #fce5e7;
 }
+.appointment-payment-indicator {
+    display: flex;
+    align-items: center;
+    gap: 7px;
 
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.appointment-payment-indicator.payment-verified {
+    color: #27865c;
+}
+
+.appointment-payment-indicator.payment-waiting {
+    color: #96651a;
+}
+
+.appointment-payment-indicator.payment-failed {
+    color: #b84552;
+}
+
+.appointment-status-expired {
+    background: #f0f3f4;
+    color: #647f88;
+}
 /* ========================================
    RESPONSIVE
 ======================================== */

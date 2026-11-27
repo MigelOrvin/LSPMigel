@@ -66,10 +66,15 @@
 
         </a>
 
-        <button class="sidebar-link" disabled>
+        <a href="{{ route('admin.payments.index') }}"
+            class="sidebar-link
+                {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}">
+
             <i class="bi bi-wallet2"></i>
-            Pembayaran
-        </button>
+
+            <span>Pembayaran</span>
+
+        </a>
 
         <button class="sidebar-link" disabled>
             <i class="bi bi-megaphone"></i>

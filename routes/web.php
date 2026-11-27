@@ -12,6 +12,7 @@ use App\Http\Controllers\Patient\DashboardController as PatientDashboardControll
 use App\Http\Controllers\Patient\ReservationController as PatientReservationController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 
+use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
 use App\Http\Controllers\Patient\PaymentController;
 Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'showLogin']);
@@ -87,6 +88,21 @@ Route::prefix('admin')
         'updateStatus'
     ])->name('reservations.status');
 
+    Route::get('/payments', [
+        AdminPaymentController::class,
+        'index'
+    ])->name('payments.index');
+
+    Route::get('/payments/{payment}/proof', [
+        AdminPaymentController::class,
+        'proof'
+    ])->name('payments.proof');
+
+    Route::patch('/payments/{payment}/status', [
+        AdminPaymentController::class,
+        'updateStatus'
+    ])->name('payments.status');
+
 });
 
 
@@ -119,7 +135,7 @@ Route::prefix('patient')
         PatientReservationController::class,
         'store'
     ])->name('reservations.store');
-    
+
     Route::get('/reservations/{reservation}/payment', [
         PaymentController::class,
         'create'

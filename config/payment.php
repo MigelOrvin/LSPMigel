@@ -3,7 +3,7 @@
 return [
     'bank_name' => env(
         'PAYMENT_BANK_NAME',
-        'Bank Demo'
+        'Bank ABC'
     ),
 
     'account_number' => env(
@@ -16,5 +16,13 @@ return [
         'DentalCare'
     ),
 
-    'demo' => env('PAYMENT_DEMO', true),
+    'demo' => env(
+        'PAYMENT_DEMO',
+        true
+    ),
+
+    'expiration_minutes' => (int) env(
+        'PAYMENT_EXPIRATION_MINUTES',
+        5
+    ),
 ];

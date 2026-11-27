@@ -146,13 +146,14 @@ class ReservationService
             return [];
         }
 
-        $reservations = Reservation::where(
-                'schedule_id',
-                $schedule->id
-            )
+        $reservations = Reservation::query()
+            ->where('schedule_id', $schedule->id)
             ->where('reservation_date', $date)
-            ->whereIn('status', self::BOOKED_STATUSES)
-            ->get(['start_time', 'end_time']);
+            ->occupiesSlot()
+            ->get([
+                'start_time',
+                'end_time'
+            ]);
 
         $slots = $this->generateSlots($schedule, $date);
 
@@ -275,22 +276,20 @@ class ReservationService
                 ]);
             }
 
-            // Time Interval Overlap
-            $conflict = Reservation::where(
-                    'schedule_id',
-                    $schedule->id
-                )
+            $conflict = Reservation::query()
+                ->where('schedule_id', $schedule->id)
                 ->where('reservation_date', $date)
-                ->whereIn('status', self::BOOKED_STATUSES)
+                ->occupiesSlot()
                 ->where('start_time', '<', $normalizedEnd)
                 ->where('end_time', '>', $normalizedStart)
                 ->lockForUpdate()
                 ->first();
 
             if ($conflict) {
+
                 throw ValidationException::withMessages([
                     'start_time' =>
-                        'Slot sudah dipesan. Silakan pilih jam lain.'
+                        'Slot pemeriksaan sudah dipesan pasien lain.'
                 ]);
             }
 
@@ -313,7 +312,11 @@ class ReservationService
 
                 'total_amount' => $doctor->consultation_fee,
 
-                'status' => 'pending'
+                'status' => 'pending',
+
+                'expires_at' => now()->addMinutes(
+                    max(1, config('payment.expiration_minutes', 5))
+                )
             ]);
         }, 3);
     }
@@ -335,6 +338,17 @@ class ReservationService
             throw ValidationException::withMessages([
                 'status' => 'Status verifikasi tidak valid.'
             ]);
+        }
+        $payment = $reservation->payment()
+            ->lockForUpdate()
+            ->first();
+
+        if ($payment?->status !== 'approved') {
+
+            throw ValidationException::withMessages([
+                'status' => 'Pembayaran harus diverifikasi terlebih dahulu.'
+            ]);
+
         }
 
         return DB::transaction(function () use (

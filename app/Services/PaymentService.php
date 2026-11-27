@@ -21,43 +21,46 @@ class PaymentService
         User $user
     ): void {
 
-        // Pastikan reservasi milik pasien
         abort_unless(
             $reservation->user_id === $user->id,
             403
         );
 
+        if (
+            $reservation->status === 'expired' ||
+            $reservation->hasPaymentExpired()
+        ) {
+
+            throw ValidationException::withMessages([
+                'payment' =>
+                    'Waktu pembayaran telah habis. '
+                    . 'Silakan buat reservasi baru.'
+            ]);
+        }
+
         if ($reservation->status !== 'pending') {
 
             throw ValidationException::withMessages([
-                'payment' => 'Reservasi tidak dapat dibayar.'
+                'payment' =>
+                    'Reservasi tidak dapat dibayar.'
             ]);
         }
 
-        $appointmentTime = CarbonImmutable::parse(
-            $reservation->reservation_date->format('Y-m-d')
-                . ' '
-                . $reservation->start_time,
-            'Asia/Jakarta'
-        );
-
-        if ($appointmentTime->lte(
-            CarbonImmutable::now('Asia/Jakarta')
-        )) {
+        // Upload ulang tidak diperbolehkan lagi
+        if ($reservation->payment) {
 
             throw ValidationException::withMessages([
-                'payment' => 'Waktu pemeriksaan telah berlalu.'
+                'payment' =>
+                    'Pembayaran sudah pernah diajukan.'
             ]);
         }
 
-        if (in_array(
-            $reservation->payment?->status,
-            ['pending', 'approved'],
-            true
-        )) {
+        if (!$reservation->can_pay) {
 
             throw ValidationException::withMessages([
-                'payment' => 'Pembayaran sudah diajukan sebelumnya.'
+                'payment' =>
+                    'Waktu pembayaran atau pemeriksaan '
+                    . 'sudah tidak tersedia.'
             ]);
         }
     }
@@ -123,18 +126,14 @@ class PaymentService
 
                     $oldProof = $existingPayment?->payment_proof;
 
-                    $payment = $reservation->payment()
-                        ->updateOrCreate(
-                            [],
-                            [
-                                'amount' => $reservation->total_amount,
-                                'payment_proof' => $path,
-                                'status' => 'pending',
-                                'admin_note' => null,
-                                'verified_by' => null,
-                                'verified_at' => null
-                            ]
-                        );
+                    $payment = $reservation->payment()->create([
+                        'amount' => $reservation->total_amount,
+                        'payment_proof' => $path,
+                        'status' => 'pending',
+                        'admin_note' => null,
+                        'verified_by' => null,
+                        'verified_at' => null
+                    ]);
 
                     return [$payment, $oldProof];
 
@@ -156,5 +155,103 @@ class PaymentService
         }
 
         return $payment;
+    }
+
+    public function verifyPayment(
+        Payment $payment,
+        User $admin,
+        string $status,
+        ?string $note = null
+    ): Payment {
+
+        abort_unless(
+            $admin->role === 'admin' &&
+            $admin->status === 'approved',
+            403
+        );
+
+        if (!in_array($status, ['approved', 'rejected'], true)) {
+
+            throw ValidationException::withMessages([
+                'status' => 'Status pembayaran tidak valid.'
+            ]);
+        }
+
+        if ($status === 'rejected' && !trim($note ?? '')) {
+
+            throw ValidationException::withMessages([
+                'admin_note' => 'Alasan penolakan wajib diisi.'
+            ]);
+        }
+
+        return DB::transaction(function () use (
+            $payment,
+            $admin,
+            $status,
+            $note
+        ) {
+
+            $reservationId = $payment->reservation_id;
+
+            $scheduleId = Reservation::whereKey($reservationId)
+                ->value('schedule_id');
+
+            // Lock dengan urutan yang konsisten
+            Schedule::whereKey($scheduleId)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            $reservation = Reservation::whereKey($reservationId)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            $payment = Payment::whereKey($payment->id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            if ($payment->status !== 'pending') {
+
+                throw ValidationException::withMessages([
+                    'status' => 'Pembayaran sudah diverifikasi.'
+                ]);
+            }
+
+            if ($reservation->status !== 'pending') {
+
+                throw ValidationException::withMessages([
+                    'status' => 'Reservasi tidak dapat diproses.'
+                ]);
+            }
+
+            if (
+                $status === 'approved' &&
+                !Storage::disk('local')->exists(
+                    $payment->payment_proof
+                )
+            ) {
+
+                throw ValidationException::withMessages([
+                    'payment' => 'File bukti pembayaran tidak ditemukan.'
+                ]);
+            }
+
+            $payment->update([
+                'status' => $status,
+                'admin_note' => $note,
+                'verified_by' => $admin->id,
+                'verified_at' => now()
+            ]);
+
+            if ($status === 'rejected') {
+
+                $reservation->update([
+                    'status' => 'rejected'
+                ]);
+            }
+
+
+            return $payment;
+
+        }, 3);
     }
 }
