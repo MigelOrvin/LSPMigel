@@ -51,6 +51,51 @@
 
 @endif
 
+    {{-- Payment Countdown --}}
+    <div class="payment-countdown mb-4"
+        id="payment-countdown"
+        data-expires-at="{{ $reservation->expires_at->getTimestampMs() }}"
+        data-server-time="{{ now()->getTimestampMs() }}"
+        data-duration="{{ max(1, config('payment.expiration_minutes', 5)) * 60 }}"
+        data-redirect-url="{{ route('patient.reservations.index') }}">
+
+        <div class="payment-countdown-main">
+
+            <div class="payment-countdown-icon">
+                <i class="bi bi-stopwatch"></i>
+            </div>
+
+            <div class="payment-countdown-info">
+
+                <h6 id="payment-countdown-title">
+                    Selesaikan pembayaran dalam
+                </h6>
+
+                <p id="payment-countdown-message">
+                    Jadwal pemeriksaan dikunci sementara untuk Anda.
+                </p>
+
+            </div>
+
+            <div class="payment-countdown-value"
+                id="payment-countdown-value">
+
+                --:--
+
+            </div>
+
+        </div>
+
+        <div class="payment-countdown-track">
+
+            <div class="payment-countdown-bar"
+                id="payment-countdown-bar">
+            </div>
+
+        </div>
+
+    </div>
+
 <div class="row g-4 align-items-start">
 
     {{-- Reservation Summary --}}

@@ -911,6 +911,163 @@
     margin: 0;
 }
 
+
+/* ========================================
+   RESERVATION CARD COUNTDOWN
+======================================== */
+
+.booking-countdown {
+    margin-top: 15px;
+    padding: 13px 15px;
+
+    background: #fff7e8;
+    border: 1px solid #eedab6;
+    border-radius: 10px;
+}
+
+.booking-countdown-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.booking-countdown-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 35px;
+    height: 35px;
+
+    background: #fff1d7;
+    color: #96651a;
+    border-radius: 9px;
+
+    font-size: 19px;
+}
+
+.booking-countdown-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.booking-countdown-info strong {
+    display: block;
+
+    color: #96651a;
+    font-size: 12px;
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+.booking-countdown-info small {
+    display: block;
+    color: #a47a3b;
+    font-size: 10px;
+}
+
+.booking-countdown-value {
+    flex-shrink: 0;
+
+    color: #96651a;
+    font-size: 23px;
+    font-weight: 750;
+
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.5px;
+}
+
+.booking-countdown-track {
+    height: 4px;
+    width: 100%;
+
+    margin-top: 12px;
+
+    background: #eddfc7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.booking-countdown-bar {
+    height: 100%;
+    width: 100%;
+
+    background: #c58b32;
+    border-radius: 10px;
+
+    transition:
+        width 0.25s linear,
+        background-color 0.2s ease;
+}
+
+/* Urgent & Expired */
+
+.booking-countdown.urgent,
+.booking-countdown.expired {
+    background: #fff0f1;
+    border-color: #edbbc0;
+}
+
+.booking-countdown.urgent .booking-countdown-icon,
+.booking-countdown.expired .booking-countdown-icon {
+    background: #fce5e7;
+    color: #b84552;
+}
+
+.booking-countdown.urgent .booking-countdown-value,
+.booking-countdown.expired .booking-countdown-value,
+.booking-countdown.urgent .booking-countdown-info strong,
+.booking-countdown.expired .booking-countdown-info strong,
+.booking-countdown.urgent .booking-countdown-info small,
+.booking-countdown.expired .booking-countdown-info small {
+    color: #b84552;
+}
+
+.booking-countdown.urgent .booking-countdown-bar,
+.booking-countdown.expired .booking-countdown-bar {
+    background: #b84552;
+}
+
+/* Responsive */
+
+@media (max-width: 575.98px) {
+
+    .booking-countdown {
+        padding: 11px;
+    }
+
+    .booking-countdown-main {
+        gap: 8px;
+    }
+
+    .booking-countdown-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .booking-countdown-value {
+        font-size: 20px;
+    }
+
+    .booking-countdown-info strong {
+        font-size: 11px;
+    }
+
+    .booking-countdown-info small {
+        font-size: 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .booking-countdown-bar {
+        transition: none;
+    }
+}
+
+
 /* ========================================
    RESPONSIVE
 ======================================== */

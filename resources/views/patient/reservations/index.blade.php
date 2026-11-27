@@ -272,14 +272,49 @@
                     {{-- Status Messages --}}
                     @if ($displayStatus === 'awaiting_payment')
 
-                        <p class="booking-status-message">
+                    <div class="booking-countdown"
+                        data-booking-countdown
+                        data-expires-at="{{ $reservation->expires_at->getTimestampMs() }}"
+                        data-server-time="{{ now()->getTimestampMs() }}"
+                        data-duration="{{ max(1, config('payment.expiration_minutes', 5)) * 60 }}">
 
-                            <i class="bi bi-info-circle me-1"></i>
+                        <div class="booking-countdown-main">
 
-                            Silakan lakukan pembayaran agar
-                            reservasi dapat diproses.
+                            <div class="booking-countdown-icon">
+                                <i class="bi bi-stopwatch"></i>
+                            </div>
 
-                        </p>
+                            <div class="booking-countdown-info">
+
+                                <strong>
+                                    Sisa Waktu Pembayaran
+                                </strong>
+
+                                <small data-countdown-message>
+                                    Selesaikan sebelum waktu habis.
+                                </small>
+
+                            </div>
+
+                            <strong class="booking-countdown-value"
+                                data-countdown-value>
+
+                                --:--
+
+                            </strong>
+
+                        </div>
+
+                        <div class="booking-countdown-track">
+
+                            <div class="booking-countdown-bar"
+                                data-countdown-bar>
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                     @elseif ($displayStatus === 'payment_pending')
 
@@ -354,7 +389,7 @@
                             'patient.payments.create',
                             $reservation
                         ) }}"
-                            class="btn portal-primary-button">
+                            class="btn portal-primary-button" data-booking-pay-button>
 
                             <i class="bi bi-wallet2 me-1"></i>
 
