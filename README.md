@@ -25,24 +25,103 @@ DentalCare mengintegrasikan pengelolaan jadwal praktik, verifikasi pembayaran, d
 
 ### Pasien
 
+<p align="center">
+  <img src="ximage/image.png" width="48%" alt="Registrasi Pasien">
+  <img src="ximage/image-1.png" width="48%" alt="Status Pendaftaran">
+</p>
+
+<p align="center">
+  <img src="ximage/image-2.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-3.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Registrasi akun dan pemantauan status pendaftaran.
 - Login setelah akun disetujui administrator.
+
+<p align="center">
+  <img src="ximage/image-4.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-5.png" width="48%" alt="Tampilan Pasien">
+</p>
+<p align="center">
+  <img src="ximage/image-6.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Dashboard dokter, kalender ketersediaan jadwal tujuh hari, dan informasi biaya konsultasi.
+
+<p align="center">
+  <img src="ximage/image-7.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-8.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Pemilihan dokter, tanggal, slot pemeriksaan, dan pengisian keluhan.
+
+<p align="center">
+  <img src="ximage/image-9.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-10.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Konfirmasi pembayaran melalui unggahan bukti transfer.
 - Countdown pembayaran selama lima menit.
+
+<p align="center">
+  <img src="ximage/image-11.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-12.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Pemantauan progres reservasi, alasan penolakan, dan riwayat reservasi.
+
+<p align="center">
+  <img src="ximage/image-13.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-14.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Membaca pengumuman klinik yang telah dipublikasikan.
 
 ### Administrator
 
+<p align="center">
+  <img src="ximage/image-15.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-16.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Login dan dashboard ringkasan operasional klinik.
+
+<p align="center">
+  <img src="ximage/image-17.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-18.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Verifikasi pendaftaran pasien (menerima atau menolak).
-- Informasi dokter, jadwal praktik, dan pengaturan status aktif dokter.
+
+<p align="center">
+  <img src="ximage/image-19.png" width="48%" alt="Tampilan Pasien">
+</p>
+
+- Informasi dokter dan pengaturan status aktif dokter.
+
+<p align="center">
+  <img src="ximage/image-20.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-21.png" width="48%" alt="Tampilan Pasien">
+</p>
+<p align="center">
+  <img src="ximage/image-22.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Verifikasi bukti pembayaran (menerima atau menolak).
+
+<p align="center">
+  <img src="ximage/image-23.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-24.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - Verifikasi reservasi setelah pembayaran disetujui.
+
+<p align="center">
+  <img src="ximage/image-25.png" width="48%" alt="Tampilan Pasien">
+  <img src="ximage/image-26.png" width="48%" alt="Tampilan Pasien">
+</p>
+
 - CRUD pengumuman dengan gambar opsional dan status draft/published.
-- Pencarian, filter, sorting, pagination, dan statistik sesuai modul.
 
 ### Otomatisasi
 
@@ -54,7 +133,7 @@ DentalCare mengintegrasikan pengelolaan jadwal praktik, verifikasi pembayaran, d
 
 | Komponen | Teknologi |
 | --- | --- |
-| Backend | PHP, Laravel |
+| Backend | PHP 8.5.10 , Laravel |
 | Frontend | Blade, HTML, CSS, JavaScript |
 | CSS framework | Bootstrap 5 |
 | Ikon | Bootstrap Icons |
@@ -85,8 +164,8 @@ git --version
 Ganti URL contoh berikut dengan URL repository DentalCare yang sebenarnya.
 
 ```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
-cd REPOSITORY
+git clone https://github.com/MigelOrvin/LSPMigel.git
+cd LSPMigel
 ```
 
 ### 2. Instal dependensi
@@ -143,7 +222,6 @@ php artisan migrate --seed
 
 Seeder digunakan untuk menyediakan akun administrator, dokter, dan jadwal praktik awal. Periksa `DatabaseSeeder.php` dan `AdminSeeder.php` untuk konfigurasi akun administrator awal. Segera ubah kredensial administrator awal sebelum membuka akses aplikasi kepada pengguna. Pasien dapat membuat akun melalui halaman registrasi.
 
-> Jangan menjalankan `php artisan migrate:fresh` pada database yang berisi data penting karena seluruh tabel akan dihapus.
 
 ### 5. Konfigurasi storage
 
