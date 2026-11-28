@@ -60,10 +60,17 @@
 
                 <li class="nav-item">
 
-                    <span class="nav-link disabled">
+                    <a href="{{ route('patient.announcements.index') }}"
+                        class="nav-link
+                            {{ request()->routeIs('patient.announcements.*')
+                                ? 'active'
+                                : '' }}">
+
                         <i class="bi bi-megaphone me-1"></i>
+
                         Pengumuman
-                    </span>
+
+                    </a>
 
                 </li>
 

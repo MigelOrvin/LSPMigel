@@ -14,6 +14,10 @@ use App\Http\Controllers\Admin\ReservationController as AdminReservationControll
 
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
 use App\Http\Controllers\Patient\PaymentController;
+
+use App\Http\Controllers\Admin\AnnouncementController as AdminAnnouncementController;
+use App\Http\Controllers\Patient\AnnouncementController as PatientAnnouncementController;
+
 Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'showLogin']);
     
@@ -103,6 +107,11 @@ Route::prefix('admin')
         'updateStatus'
     ])->name('payments.status');
 
+    Route::resource(
+        'announcements',
+        AdminAnnouncementController::class
+    );
+
 });
 
 
@@ -145,4 +154,12 @@ Route::prefix('patient')
         PaymentController::class,
         'store'
     ])->name('payments.store');
+
+    Route::resource(
+        'announcements',
+        PatientAnnouncementController::class
+    )->only([
+        'index',
+        'show'
+    ]);
 });

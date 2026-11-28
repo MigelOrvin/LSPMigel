@@ -172,7 +172,10 @@
                         id="reservation-date"
                         name="reservation_date"
                         value=""
-                        data-old-value="{{ old('reservation_date') }}">
+                        data-old-value="{{ old(
+                            'reservation_date',
+                            request()->query('date')
+                        ) }}">
 
                     <div class="reservation-dates">
 

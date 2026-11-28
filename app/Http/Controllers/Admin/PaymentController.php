@@ -7,6 +7,7 @@ use App\Models\Payment;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Filesystem\FilesystemAdapter;
 
 class PaymentController extends Controller
 {
@@ -125,6 +126,7 @@ class PaymentController extends Controller
 
     public function proof(Payment $payment)
     {
+        /** @var FilesystemAdapter $disk */
         $disk = Storage::disk('local');
 
         abort_unless(
@@ -175,7 +177,7 @@ class PaymentController extends Controller
             : 'Pembayaran ditolak dan reservasi dihentikan. '
                 . 'Slot pemeriksaan kembali tersedia '
                 . 'jika waktunya belum berlalu.';
-                
+
         return back()->with('success', $message);
     }
 }

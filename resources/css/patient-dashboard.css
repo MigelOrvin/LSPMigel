@@ -1,0 +1,829 @@
+
+/* ========================================
+   DENTALCARE — DOCTOR DISCOVERY
+======================================== */
+
+.discovery-section {
+    scroll-margin-top: 110px;
+}
+
+/* Hero */
+
+.discovery-hero {
+    min-height: 250px;
+}
+
+.discovery-greeting {
+    color: #dceff0;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 18px 0 8px;
+}
+
+.discovery-hero h1 {
+    font-size: clamp(28px, 3.2vw, 44px);
+    font-weight: 750;
+    letter-spacing: -1.3px;
+    line-height: 1.15;
+}
+
+.discovery-secondary-button {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 9px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.discovery-secondary-button:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff;
+}
+
+/* ========================================
+   SECTION HEADING
+======================================== */
+
+.discovery-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.discovery-eyebrow {
+    display: block;
+    color: #647f88;
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 1.5px;
+    margin-bottom: 7px;
+}
+
+.discovery-section-heading h4 {
+    color: #163b46;
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+    margin-bottom: 5px;
+}
+
+.discovery-section-heading p {
+    color: #647f88;
+    font-size: 13px;
+    margin: 0;
+}
+
+.discovery-period,
+.discovery-doctor-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background: #fcfefe;
+    color: #126e87;
+
+    border: 1px solid #dce8eb;
+    border-radius: 9px;
+    padding: 10px 14px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ========================================
+   WEEKLY CALENDAR
+======================================== */
+
+.discovery-calendar {
+    background: #fcfefe;
+    border: 1px solid #dce8eb;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.discovery-calendar-scroll {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #b8d4d9 transparent;
+}
+
+.discovery-calendar-table {
+    width: 100%;
+    min-width: 1000px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.discovery-calendar-table thead th {
+    padding: 18px 8px;
+
+    background: #f0f6f7;
+    color: #647f88;
+
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+
+    border-bottom: 1px solid #dce8eb;
+}
+
+.discovery-calendar-table tbody td {
+    padding: 13px 7px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e7eff1;
+}
+
+.discovery-calendar-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Sticky Doctor Column */
+
+.discovery-calendar-table .calendar-doctor-column {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+
+    width: 215px;
+    min-width: 215px;
+
+    padding: 18px 16px;
+    text-align: left;
+
+    background: #fcfefe;
+    border-right: 1px solid #e7eff1;
+}
+
+.discovery-calendar-table thead .calendar-doctor-column {
+    background: #f0f6f7;
+    z-index: 3;
+}
+
+.calendar-doctor {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendar-doctor-photo {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 44px;
+    height: 44px;
+
+    background: #dceff0;
+    color: #126e87;
+
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calendar-doctor-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.calendar-doctor strong {
+    display: block;
+    color: #163b46;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.calendar-doctor small {
+    display: block;
+    color: #647f88;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* Calendar Date */
+
+.calendar-day {
+    display: block;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.calendar-date {
+    display: block;
+    color: #163b46;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.discovery-calendar-table th.calendar-today {
+    background: #dceff0;
+}
+
+.calendar-today .calendar-date,
+.calendar-today .calendar-day {
+    color: #126e87;
+}
+
+.calendar-today-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 9px;
+    color: #126e87;
+}
+
+.calendar-today-cell {
+    background: #f6fbfb;
+}
+
+/* Calendar Slot */
+
+.calendar-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    min-width: 96px;
+    min-height: 64px;
+
+    padding: 10px 6px;
+
+    border: 1px solid transparent;
+    border-radius: 9px;
+
+    text-decoration: none;
+    text-align: center;
+}
+
+.calendar-slot strong {
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.calendar-slot small {
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+.calendar-slot-available {
+    color: #126e87;
+    background: #e7f2f3;
+    border-color: #c9e2e5;
+    transition: 0.2s ease;
+}
+
+.calendar-slot-available small {
+    color: #27865c;
+}
+
+.calendar-slot-available:hover {
+    background: #126e87;
+    border-color: #126e87;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.calendar-slot-available:hover small {
+    color: #dceff0;
+}
+
+.calendar-slot-full {
+    background: #f0f3f4;
+    color: #8b9da3;
+}
+
+.calendar-slot-full small {
+    color: #647f88;
+}
+
+.calendar-slot-closed {
+    color: #a2b4ba;
+    background: transparent;
+}
+
+/* Calendar Legend */
+
+.calendar-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+
+    padding: 16px 20px;
+    border-top: 1px solid #dce8eb;
+}
+
+.calendar-legend > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #647f88;
+    font-size: 11px;
+}
+
+.calendar-legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.legend-available {
+    background: #b8dfe2;
+}
+
+.legend-full {
+    background: #dce4e7;
+}
+
+.legend-closed {
+    border: 1px solid #b8c7cc;
+}
+
+.calendar-legend > small {
+    color: #647f88;
+    font-size: 11px;
+}
+
+.calendar-mobile-hint {
+    display: none;
+    margin-top: 10px;
+    color: #647f88;
+    font-size: 11px;
+}
+
+/* ========================================
+   DOCTOR DISCOVERY CARD
+======================================== */
+
+.discovery-doctor-card {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    background: #fcfefe;
+
+    border: 1px solid #dce8eb;
+    border-radius: 17px;
+
+    overflow: hidden;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.discovery-doctor-card:hover {
+    border-color: #b8d4d9;
+    box-shadow: 0 8px 25px rgba(22, 75, 89, 0.06);
+}
+
+/* Doctor Cover */
+
+.discovery-doctor-cover {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 185px;
+
+    padding: 38px 20px 18px;
+
+    background: linear-gradient(
+        135deg,
+        #edf7f8,
+        #d5eaed
+    );
+}
+
+.discovery-cover-decoration {
+    position: absolute;
+    right: -10px;
+    bottom: -35px;
+
+    font-size: 190px;
+    line-height: 1;
+
+    color: rgba(18, 110, 135, 0.05);
+    transform: rotate(-15deg);
+    z-index: -1;
+}
+
+.discovery-doctor-photo {
+    display: grid;
+    place-items: center;
+
+    width: 120px;
+    height: 120px;
+
+    background: #fcfefe;
+    border: 4px solid #fcfefe;
+    border-radius: 23px;
+
+    box-shadow: 0 6px 20px rgba(18, 110, 135, 0.1);
+
+    color: #126e87;
+    font-size: 48px;
+    overflow: hidden;
+}
+
+.discovery-doctor-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Availability */
+
+.discovery-availability {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    border-radius: 7px;
+}
+
+.discovery-availability > span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.availability-open {
+    background: #fcfefe;
+    color: #27865c;
+}
+
+.availability-closed {
+    background: #f0f3f4;
+    color: #647f88;
+}
+
+/* Doctor Information */
+
+.discovery-doctor-body {
+    flex: 1;
+    padding: 22px;
+}
+
+.discovery-doctor-body h5 {
+    color: #163b46;
+    font-size: 20px;
+    font-weight: 750;
+    letter-spacing: -0.4px;
+    margin-bottom: 5px;
+}
+
+.discovery-speciality {
+    color: #647f88;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.discovery-doctor-information {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.discovery-info-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.discovery-info-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 37px;
+    height: 37px;
+
+    background: #edf5f6;
+    color: #126e87;
+    border-radius: 9px;
+
+    font-size: 17px;
+}
+
+.discovery-info-row small {
+    display: block;
+    color: #647f88;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.discovery-info-row strong {
+    display: block;
+    color: #163b46;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Doctor Footer */
+
+.discovery-doctor-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding: 18px 22px;
+    border-top: 1px solid #e7eff1;
+}
+
+.discovery-doctor-footer small {
+    display: block;
+    color: #647f88;
+    font-size: 11px;
+    margin-bottom: 3px;
+}
+
+.discovery-doctor-fee {
+    display: block;
+    color: #126e87;
+    font-size: 22px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.discovery-doctor-footer .btn {
+    font-size: 12px;
+}
+
+/* ========================================
+   UPCOMING RESERVATIONS
+======================================== */
+
+.discovery-upcoming {
+    padding-top: 28px;
+    border-top: 1px solid #cbdde1;
+}
+
+.discovery-view-all {
+    color: #126e87;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.discovery-view-all:hover {
+    color: #0d566b;
+}
+
+.discovery-upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.discovery-appointment {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 17px 20px;
+
+    background: #fcfefe;
+    border: 1px solid #dce8eb;
+    border-radius: 13px;
+}
+
+.discovery-appointment-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 58px;
+    min-height: 64px;
+
+    background: #e7f2f3;
+    color: #126e87;
+    border-radius: 10px;
+}
+
+.discovery-appointment-date span {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.discovery-appointment-date strong {
+    font-size: 26px;
+    font-weight: 750;
+    line-height: 1.2;
+}
+
+.discovery-appointment-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.discovery-appointment-info h6 {
+    color: #163b46;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.discovery-appointment-info small {
+    color: #647f88;
+    font-size: 12px;
+}
+
+.discovery-appointment-empty {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    padding: 24px;
+
+    background: #fcfefe;
+    border: 1px dashed #b8d4d9;
+    border-radius: 13px;
+}
+
+.discovery-appointment-empty h6 {
+    color: #163b46;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.discovery-appointment-empty p {
+    color: #647f88;
+    font-size: 12px;
+    margin: 0;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1199.98px) {
+
+    .calendar-mobile-hint {
+        display: block;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    .discovery-hero {
+        min-height: auto;
+    }
+
+    .discovery-hero h1 {
+        font-size: 27px;
+        letter-spacing: -0.7px;
+    }
+
+    .discovery-greeting {
+        font-size: 12px;
+    }
+
+    .discovery-secondary-button {
+        font-size: 11px;
+        padding: 10px 12px;
+    }
+
+    .discovery-section-heading h4 {
+        font-size: 20px;
+    }
+
+    .discovery-section-heading p {
+        font-size: 12px;
+    }
+
+    .discovery-period,
+    .discovery-doctor-count {
+        font-size: 10px;
+        padding: 8px 11px;
+    }
+
+    .discovery-calendar-table {
+        min-width: 850px;
+    }
+
+    .discovery-calendar-table .calendar-doctor-column {
+        width: 145px;
+        min-width: 145px;
+        padding: 12px 10px;
+    }
+
+    .calendar-doctor {
+        gap: 7px;
+    }
+
+    .calendar-doctor-photo {
+        width: 32px;
+        height: 32px;
+        border-radius: 7px;
+    }
+
+    .calendar-doctor strong {
+        font-size: 10px;
+    }
+
+    .calendar-doctor small {
+        font-size: 9px;
+    }
+
+    .calendar-slot {
+        min-width: 86px;
+        min-height: 58px;
+    }
+
+    .calendar-slot strong {
+        font-size: 10px;
+    }
+
+    .calendar-legend {
+        padding: 13px;
+        gap: 10px;
+    }
+
+    .calendar-legend > span,
+    .calendar-legend > small {
+        font-size: 10px;
+    }
+
+    .discovery-doctor-cover {
+        min-height: 165px;
+    }
+
+    .discovery-doctor-photo {
+        width: 105px;
+        height: 105px;
+    }
+
+    .discovery-doctor-body {
+        padding: 18px;
+    }
+
+    .discovery-doctor-footer {
+        padding: 16px 18px;
+    }
+
+    .discovery-doctor-fee {
+        font-size: 20px;
+    }
+
+    .discovery-appointment {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .discovery-appointment-status {
+        grid-column: 1 / -1;
+    }
+
+    .discovery-appointment > .btn {
+        grid-column: 1 / -1;
+    }
+
+    .discovery-appointment-empty {
+        padding: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .calendar-slot-available,
+    .discovery-doctor-card {
+        transition: none;
+    }
+
+    .calendar-slot-available:hover {
+        transform: none;
+    }
+}

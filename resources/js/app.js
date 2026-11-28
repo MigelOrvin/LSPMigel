@@ -9,3 +9,4 @@ import './payment.js';
 import './admin-payment.js';
 import './payment-countdown.js';
 import './reservation-countdown.js';
+import './announcement.js';

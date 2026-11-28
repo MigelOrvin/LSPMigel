@@ -35,4 +35,8 @@ class User extends Authenticatable
             'verified_by'
         );
     }
+    public function announcements(): HasMany
+    {
+        return $this->hasMany(Announcement::class);
+    }
 }

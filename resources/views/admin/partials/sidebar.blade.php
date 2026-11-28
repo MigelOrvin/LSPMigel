@@ -51,11 +51,6 @@
 
         </a>
 
-        <button class="sidebar-link" disabled>
-            <i class="bi bi-calendar-week"></i>
-            Jadwal Praktik
-        </button>
-
         <a href="{{ route('admin.reservations.index') }}"
             class="sidebar-link
                 {{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
@@ -76,10 +71,17 @@
 
         </a>
 
-        <button class="sidebar-link" disabled>
+        <a href="{{ route('admin.announcements.index') }}"
+            class="sidebar-link
+                {{ request()->routeIs('admin.announcements.*')
+                    ? 'active'
+                    : '' }}">
+
             <i class="bi bi-megaphone"></i>
-            Pengumuman
-        </button>
+
+            <span>Pengumuman</span>
+
+        </a>
 
     </nav>
 
